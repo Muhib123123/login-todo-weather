@@ -38,7 +38,7 @@ export default function InvalidInputs({ setCheck, check }: InvalidInputsProps) {
       <div className="modal-overlay invalid-age">
         <div className="modal-content">
           <h2>
-            Name should only contain letters and dots with a maximum of 16
+            Name should only contain letters with dots with a maximum of 16
             characters
           </h2>
           <button onClick={handleCloseElement}>Close</button>

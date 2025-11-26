@@ -29,12 +29,28 @@ export default function SignIn({check, setCheck}: SignInProps) {
     employed: false,
     salary: "less then 500",
   });
+  const [checkName, setCheckName] = useState(false);
   const emailRef = useRef<HTMLInputElement>(null);
   const ageRef = useRef<HTMLInputElement>(null);
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRegex = /^[^\s@]+@[^\s@0-9]+\.[^\s@0-9]+$/;
   const ageRegex = /^[0-9]{2}$/;
   const nameRegex = /^[a-zA-Z\\.\s]{0,}$/;
+
+
+  function handleCheckName(a : string) {
+    if (!nameRegex.test(a) ||
+      a.length > 16 ||
+      a.includes(" ") ||
+      /[a-zA-Z]{1}[\\.]{2,}/.test(a) ||
+      !/[a-zA-Z]/.test(a) ||
+      /[\\.]{2,}[a-zA-Z]{0,}/.test(a) ||
+      a.startsWith(".")) {
+        setCheckName(true);
+      } else {
+        setCheckName(false);
+      }
+  }
 
   function handleEmail(e: React.ChangeEvent<HTMLInputElement>) {
     const target = e.target.value;
@@ -90,11 +106,15 @@ export default function SignIn({check, setCheck}: SignInProps) {
 
   function handleName(e: React.ChangeEvent<HTMLInputElement>) {
     const currentValue = e.target.value;
-
+    handleCheckName(currentValue);
     if (
       !nameRegex.test(currentValue) ||
       currentValue.length > 16 ||
-      currentValue.includes(" ")
+      currentValue.includes(" ") ||
+      /[a-zA-Z]{1}[\\.]{2,}/.test(currentValue) ||
+      !/[a-zA-Z]/.test(currentValue) ||
+      /[\\.]{2,}[a-zA-Z]{0,}/.test(form.name) ||
+      form.name.startsWith(".")
     ) {
       if (nameRef.current) {
         nameRef.current.classList.add("error");
@@ -139,11 +159,8 @@ export default function SignIn({check, setCheck}: SignInProps) {
   }
   function handleSubmition(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (
-      form.name.includes(" ") ||
-      !nameRegex.test(form.name) ||
-      form.name.length > 16
-    ) {
+    handleCheckName(form.name);
+    if (checkName) {
       setForm({
         ...form,
         name: "",
@@ -249,9 +266,7 @@ export default function SignIn({check, setCheck}: SignInProps) {
         <button
           type="submit"
           disabled={
-            !nameRegex.test(form.name) ||
-            form.name.includes(" ") ||
-            form.name.length > 16 ||
+            checkName ||
             !emailRegex.test(form.email) ||
             !ageRegex.test(form.age) ||
             Number(form.age) < 18

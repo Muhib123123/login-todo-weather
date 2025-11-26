@@ -48,6 +48,7 @@ function App() {
             check.goodToGo ? <PostDetails /> : <h1>Please sign in first</h1>
           }
         />
+        <Route path="*" element={<h1>404 Page not found</h1>} />
       </Routes>
     </PostContext.Provider>
   );
