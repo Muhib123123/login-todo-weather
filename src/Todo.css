@@ -1,0 +1,47 @@
+input {
+    padding: 8px;
+    margin: 8px;
+}
+.add-button {
+    padding: 8px 16px;
+    margin: 8px;
+}
+
+.todo-container {
+    margin: 20px;
+    padding: 20px;
+    border: 2px solid #69336a;
+    border-radius: 10px;
+    width: 600px;
+}
+
+.shared-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+li {
+    list-style-type: none;
+    margin: 8px 0;
+    font-size: large;
+    margin: 10px 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid #69336a;
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-button-d {
+    padding:5px 8px;
+    font-size: small;
+    background-color: red;
+}
+
+.item-button-e {
+    padding:5px 8px;
+    font-size: small;
+    background-color: green;
+    margin-right: 10px;
+}
