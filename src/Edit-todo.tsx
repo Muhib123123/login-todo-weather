@@ -5,9 +5,10 @@ type Props = {
     React.SetStateAction<{ id: string; value: string }[]>
   >;
   onClose: () => void;
+  completedTodos: string[];
 };
 
-function EditTodo({ todo, setTodos, onClose }: Props) {
+function EditTodo({ todo, setTodos, onClose, completedTodos }: Props) {
   const [newValue, setNewValue] = useState(todo.value);
   const handleSave = () => {
     setTodos((prevTodos) =>
@@ -17,16 +18,22 @@ function EditTodo({ todo, setTodos, onClose }: Props) {
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        value={newValue}
-        onChange={(e) => setNewValue(e.target.value)}
-        maxLength={30}
-      />
-      <button className="item-button-e" onClick={handleSave}>Save</button>
-      <button className="item-button-d" onClick={onClose}>Cancel</button>
-    </div>
+    <>
+    { completedTodos.includes(todo.id) ? null
+     : (
+      <div>
+        <input
+          type="text"
+          value={newValue}
+          onChange={(e) => setNewValue(e.target.value)}
+          maxLength={30}
+        />
+        <button className="item-button-e" onClick={handleSave}>Save</button>
+        <button className="item-button-d" onClick={onClose}>Cancel</button>
+      </div>
+      )
+    }
+    </>
   );
 }
 

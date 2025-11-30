@@ -45,3 +45,13 @@ li {
     background-color: green;
     margin-right: 10px;
 }
+
+.item-button-done {
+    padding:5px 8px;
+    font-size: small;
+    background-color: blue;
+}
+
+.completed {
+    text-decoration: line-through;
+}

@@ -5,6 +5,7 @@ function Todo() {
   const [todos, setTodos] = useState<{ id: string; value: string }[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [completedTodos, setCompletedTodos] = useState<string[]>([]);
 
   const handleAddTodo = () => {
     if (inputValue.trim() !== "") {
@@ -14,6 +15,10 @@ function Todo() {
       ]);
       setInputValue("");
     }
+  };
+
+  const handleClickDone = (id: string) => {
+    setCompletedTodos([...completedTodos, id]);
   };
 
   return (
@@ -35,18 +40,21 @@ function Todo() {
       <ul>
         {todos.map((todo) => todo.value && (
             
-          <li key={todo.id}>
+          <li key={todo.id} >
             {editingId === todo.id ? (
               <EditTodo
                 todo={todo}
                 setTodos={setTodos}
                 onClose={() => setEditingId(null)}
+                completedTodos={completedTodos}
               />
             ) : (
               <>
-                {todo.value}
+                {todo.value && <span className={completedTodos.includes(todo.id) ? "completed" : ""}>{todo.value}</span>}
+                <button className="item-button-done" onClick={() => handleClickDone(todo.id)} disabled={completedTodos.includes(todo.id)}>Done</button>
                 <button
                   className="item-button-e"
+                  disabled={completedTodos.includes(todo.id)}
                   onClick={() => setEditingId(todo.id)}
                 >
                   Edit
@@ -61,8 +69,9 @@ function Todo() {
                 </button>
               </>
             ) }
-          </li>
+          </li> 
         ))}
+        
       </ul>
     </div>
   );
