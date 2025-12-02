@@ -35,7 +35,7 @@ function TodoNotCompleted({
         completedDeleted.includes(todo.id) ? null : completedTodos.some(
             (c) => c.id === todo.id
           ) ? null : (
-          <li key={todo.id}>
+          <li key={todo.id} className="li-animation">
             {editingId === todo.id ? (
               <EditTodo
                 todo={todo}

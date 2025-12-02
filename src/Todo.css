@@ -14,6 +14,9 @@ input {
     border: 2px solid #69336a;
     border-radius: 10px;
     width: 600px;
+    transition: all 0.3s ease-in-out;
+    max-height: 600px;
+    overflow-y: auto;
 }
 
 .shared-div {
@@ -64,4 +67,34 @@ li {
     align-items: center;
     justify-content: space-around;
     margin-bottom: 20px;
+}
+
+.li-animation {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.li-deleted {
+  animation: fadeOut 0.5s ease-in-out;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
 }

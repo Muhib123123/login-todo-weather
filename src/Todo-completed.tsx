@@ -1,3 +1,4 @@
+
 type Props = {
   completedTodos: { id: string; value: string }[]; 
   setCompletedTodos: React.Dispatch<
@@ -17,7 +18,7 @@ function TodoCompleted({
     <ul>
       {completedTodos.map((todo) =>
         completedDeleted.includes(todo.id) ? null : (
-          <li key={todo.id}>
+          <li key={todo.id} className="li-animation">
             <span>{todo.value}</span>
             <div>
               <button

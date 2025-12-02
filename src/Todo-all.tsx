@@ -32,7 +32,7 @@ function TodoAll({
     <ul>
       {todos.map((todo) =>
         completedDeleted.includes(todo.id) ? null : todo.value === "" ? null : (
-          <li key={todo.id}>
+          <li key={todo.id} className="li-animation">
             {editingId === todo.id ? (
               <EditTodo
                 todo={todo}
