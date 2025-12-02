@@ -5,7 +5,7 @@ type Props = {
     React.SetStateAction<{ id: string; value: string }[]>
   >;
   onClose: () => void;
-  completedTodos: string[];
+  completedTodos: { id: string; value: string }[];
 };
 
 function EditTodo({ todo, setTodos, onClose, completedTodos }: Props) {
@@ -19,7 +19,7 @@ function EditTodo({ todo, setTodos, onClose, completedTodos }: Props) {
 
   return (
     <>
-    { completedTodos.includes(todo.id) ? null
+    { completedTodos.some((c) => c.id === todo.id) ? null
      : (
       <div>
         <input

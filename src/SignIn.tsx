@@ -21,7 +21,7 @@ type SignInProps = {
     }>
   >;
 };
-export default function SignIn({check, setCheck}: SignInProps) {
+export default function SignIn({ check, setCheck }: SignInProps) {
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -37,19 +37,20 @@ export default function SignIn({check, setCheck}: SignInProps) {
   const ageRegex = /^[0-9]{2}$/;
   const nameRegex = /^[a-zA-Z\\.\s]{0,}$/;
 
-
-  function handleCheckName(a : string) {
-    if (!nameRegex.test(a) ||
+  function handleCheckName(a: string) {
+    if (
+      !nameRegex.test(a) ||
       a.length > 16 ||
       a.includes(" ") ||
       /[a-zA-Z]{1}[\\.]{2,}/.test(a) ||
       !/[a-zA-Z]/.test(a) ||
       /[\\.]{2,}[a-zA-Z]{0,}/.test(a) ||
-      a.startsWith(".")) {
-        setCheckName(true);
-      } else {
-        setCheckName(false);
-      }
+      a.startsWith(".")
+    ) {
+      setCheckName(true);
+    } else {
+      setCheckName(false);
+    }
   }
 
   function handleEmail(e: React.ChangeEvent<HTMLInputElement>) {
@@ -96,6 +97,7 @@ export default function SignIn({check, setCheck}: SignInProps) {
         ageRef.current.classList.remove("error");
       }
     }
+    
     if (!target) {
       if (ageRef.current) {
         ageRef.current.classList.remove("error");
@@ -130,7 +132,6 @@ export default function SignIn({check, setCheck}: SignInProps) {
 
       // If valid, apply the dot-adding logic
       let finalValue = currentValue;
-      // If adding a character (not deleting) and it's not a space, add a dot.
       if (
         currentValue.length > form.name.length &&
         !currentValue.endsWith(" ")

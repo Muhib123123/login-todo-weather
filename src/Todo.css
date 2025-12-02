@@ -1,6 +1,7 @@
 input {
     padding: 8px;
     margin: 8px;
+    
 }
 .add-button {
     padding: 8px 16px;
@@ -50,8 +51,17 @@ li {
     padding:5px 8px;
     font-size: small;
     background-color: blue;
+    margin-right: 10px;
 }
 
 .completed {
     text-decoration: line-through;
+}
+
+.shared-div2 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 20px;
 }

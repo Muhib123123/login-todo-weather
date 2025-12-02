@@ -1,11 +1,21 @@
 import "./Todo.css";
 import { useState } from "react";
-import EditTodo from "./Edit-todo";
+import TodoAll from "./Todo-all";
+import TodoCompleted from "./Todo-completed";
+import TodoNotCompleted from "./Todo-notCompleted";
 function Todo() {
   const [todos, setTodos] = useState<{ id: string; value: string }[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [completedTodos, setCompletedTodos] = useState<string[]>([]);
+  const [completedTodos, setCompletedTodos] = useState<
+    { id: string; value: string }[]
+  >([]);
+  const [check, setCheck] = useState({
+    all: true,
+    completed: false,
+    notCompleted: false,
+  });
+  const [completedDeleted, setCompletedDeleted] = useState<string[]>([]);
 
   const handleAddTodo = () => {
     if (inputValue.trim() !== "") {
@@ -15,10 +25,6 @@ function Todo() {
       ]);
       setInputValue("");
     }
-  };
-
-  const handleClickDone = (id: string) => {
-    setCompletedTodos([...completedTodos, id]);
   };
 
   return (
@@ -31,48 +37,88 @@ function Todo() {
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          maxLength={30}
+          maxLength={25}
         />
         <button className="add-button" onClick={handleAddTodo}>
-          Add Todo
+          Add Task
         </button>
       </div>
-      <ul>
-        {todos.map((todo) => todo.value && (
-            
-          <li key={todo.id} >
-            {editingId === todo.id ? (
-              <EditTodo
-                todo={todo}
-                setTodos={setTodos}
-                onClose={() => setEditingId(null)}
-                completedTodos={completedTodos}
-              />
-            ) : (
-              <>
-                {todo.value && <span className={completedTodos.includes(todo.id) ? "completed" : ""}>{todo.value}</span>}
-                <button className="item-button-done" onClick={() => handleClickDone(todo.id)} disabled={completedTodos.includes(todo.id)}>Done</button>
-                <button
-                  className="item-button-e"
-                  disabled={completedTodos.includes(todo.id)}
-                  onClick={() => setEditingId(todo.id)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="item-button-d"
-                  onClick={() =>
-                    setTodos(todos.filter((t) => t.id !== todo.id))
-                  }
-                >
-                  Delete
-                </button>
-              </>
-            ) }
-          </li> 
-        ))}
-        
-      </ul>
+
+      <div className="shared-div2">
+        <button
+          onClick={() =>
+            setCheck({
+              ...check,
+              all: true,
+              completed: false,
+              notCompleted: false,
+            })
+          }
+        >
+          All
+        </button>
+
+        <button
+          onClick={() =>
+            setCheck({
+              ...check,
+              completed: true,
+              all: false,
+              notCompleted: false,
+            })
+          }
+        >
+          Completed
+        </button>
+
+        <button
+          onClick={() =>
+            setCheck({
+              ...check,
+              notCompleted: true,
+              all: false,
+              completed: false,
+            })
+          }
+        >
+          Not Completed
+        </button>
+      </div>
+
+      {check.all && (
+        <TodoAll
+          todos={todos}
+          setTodos={setTodos}
+          editingId={editingId}
+          setEditingId={setEditingId}
+          completedTodos={completedTodos}
+          setCompletedTodos={setCompletedTodos}
+          completedDeleted={completedDeleted}
+          setCompletedDeleted={setCompletedDeleted}
+        />
+      )}
+
+      {check.completed && (
+        <TodoCompleted
+          completedTodos={completedTodos}
+          setCompletedTodos={setCompletedTodos}
+          completedDeleted={completedDeleted}
+          setCompletedDeleted={setCompletedDeleted}
+        />
+      )}
+
+      {check.notCompleted && (
+        <TodoNotCompleted
+          todos={todos}
+          setTodos={setTodos}
+          editingId={editingId}
+          setEditingId={setEditingId}
+          completedTodos={completedTodos}
+          setCompletedTodos={setCompletedTodos}
+          completedDeleted={completedDeleted}
+          setCompletedDeleted={setCompletedDeleted}
+        />
+      )}
     </div>
   );
 }
