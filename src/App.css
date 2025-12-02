@@ -185,3 +185,9 @@ button[type="submit"]:disabled {
 .modal-content button:hover {
   background-color: #555;
 }
+
+.post-title {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}

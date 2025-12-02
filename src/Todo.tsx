@@ -37,7 +37,10 @@ function Todo() {
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          maxLength={25}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleAddTodo();
+          }}
+          maxLength={35}
         />
         <button className="add-button" onClick={handleAddTodo}>
           Add Task

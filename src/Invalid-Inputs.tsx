@@ -71,8 +71,8 @@ export default function InvalidInputs({ setCheck, check }: InvalidInputsProps) {
       <div className="modal-overlay valid">
         <div className="modal-content">
           <h2>Form submitted successfully!</h2>
-          <Link to="/lists">Go to lists</Link>
-          <Link to="/todo">Go to todo</Link>
+          <Link to="/posts">Posts page</Link>
+          <Link to="/todo">Todo page</Link>
           <button onClick={handleCloseElement}>Log out</button>
         </div>
       </div>

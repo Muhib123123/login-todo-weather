@@ -19,20 +19,25 @@ function EditTodo({ todo, setTodos, onClose, completedTodos }: Props) {
 
   return (
     <>
-    { completedTodos.some((c) => c.id === todo.id) ? null
-     : (
-      <div>
-        <input
-          type="text"
-          value={newValue}
-          onChange={(e) => setNewValue(e.target.value)}
-          maxLength={30}
-        />
-        <button className="item-button-e" onClick={handleSave}>Save</button>
-        <button className="item-button-d" onClick={onClose}>Cancel</button>
-      </div>
-      )
-    }
+      {completedTodos.some((c) => c.id === todo.id) ? null : (
+        <div>
+          <input
+            type="text"
+            value={newValue}
+            onChange={(e) => setNewValue(e.target.value)}
+            maxLength={30}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleSave();
+            }}
+          />
+          <button className="item-button-e" onClick={handleSave}>
+            Save
+          </button>
+          <button className="item-button-d" onClick={onClose}>
+            Cancel
+          </button>
+        </div>
+      )}
     </>
   );
 }

@@ -31,7 +31,7 @@ function TodoAll({
   return (
     <ul>
       {todos.map((todo) =>
-        todo.value && completedDeleted.includes(todo.id) ? null : (
+        completedDeleted.includes(todo.id) ? null : todo.value === "" ? null : (
           <li key={todo.id}>
             {editingId === todo.id ? (
               <EditTodo

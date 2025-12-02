@@ -39,7 +39,7 @@ function App() {
           path="/"
           element={<SignIn check={check} setCheck={setCheck} />}
         />
-        <Route path="/lists">
+        <Route path="/posts">
           <Route
             index
             element={
@@ -51,7 +51,7 @@ function App() {
             }
           />
           <Route
-            path="posts/:id"
+            path=":id"
             element={
               check.goodToGo ? <PostDetails /> : <h1>Please sign in first</h1>
             }
