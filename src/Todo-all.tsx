@@ -1,9 +1,9 @@
 import EditTodo from "./Edit-todo";
-
+import { useRef, useEffect } from "react";
 type Props = {
-  todos: { id: string; value: string }[];
+  todos: { id: string; value: string; css: number }[];
   setTodos: React.Dispatch<
-    React.SetStateAction<{ id: string; value: string }[]>
+    React.SetStateAction<{ id: string; value: string; css: number }[]>
   >;
   editingId: string | null;
   setEditingId: React.Dispatch<React.SetStateAction<string | null>>;
@@ -25,11 +25,26 @@ function TodoAll({
   completedDeleted,
   setCompletedDeleted,
 }: Props) {
+  const ulRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    todos.map((todo) => {
+      if (todo.css === 0) {
+        if (ulRef.current) {
+          ulRef.current.scrollTop = ulRef.current.scrollHeight;
+        }
+      } else {
+        if (ulRef.current) {
+          ulRef.current.scrollTop = 0;
+        }
+      }
+    })
+  }, [todos]);
   const handleClickDone = (ids: string, values: string) => {
     setCompletedTodos((prev) => [...prev, { id: ids, value: values }]); 
   };
   return (
-    <ul>
+    <ul ref={ulRef}>
       {todos.map((todo) =>
         completedDeleted.includes(todo.id) ? null : todo.value === "" ? null : (
           <li key={todo.id} className="li-animation">

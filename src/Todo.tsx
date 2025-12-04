@@ -4,7 +4,7 @@ import TodoAll from "./Todo-all";
 import TodoCompleted from "./Todo-completed";
 import TodoNotCompleted from "./Todo-notCompleted";
 function Todo() {
-  const [todos, setTodos] = useState<{ id: string; value: string }[]>([]);
+  const [todos, setTodos] = useState<{ id: string; value: string; css: number }[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [completedTodos, setCompletedTodos] = useState<
@@ -21,7 +21,7 @@ function Todo() {
     if (inputValue.trim() !== "") {
       setTodos([
         ...todos,
-        { id: crypto.randomUUID(), value: inputValue.trim() },
+        { id: crypto.randomUUID(), value: inputValue.trim(), css: 0 },
       ]);
       setInputValue("");
     }
@@ -49,40 +49,43 @@ function Todo() {
 
       <div className="shared-div2">
         <button
-          onClick={() =>
+          onClick={() => {
             setCheck({
               ...check,
               all: true,
               completed: false,
               notCompleted: false,
             })
-          }
+            todos.map((todo) => todo.css = 1)
+          }}
         >
           All
         </button>
 
         <button
-          onClick={() =>
+          onClick={() => {
             setCheck({
               ...check,
               completed: true,
               all: false,
               notCompleted: false,
             })
-          }
+            todos.map((todo) => todo.css = 1)
+          }}
         >
           Completed
         </button>
 
         <button
-          onClick={() =>
+          onClick={() => {
             setCheck({
               ...check,
               notCompleted: true,
               all: false,
               completed: false,
             })
-          }
+            todos.map((todo) => todo.css = 1)
+          }}
         >
           Not Completed
         </button>

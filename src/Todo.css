@@ -15,8 +15,6 @@ input {
     border-radius: 10px;
     width: 600px;
     transition: all 0.3s ease-in-out;
-    max-height: 600px;
-    overflow-y: auto;
 }
 
 .shared-div {
@@ -24,6 +22,11 @@ input {
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
+}
+
+ul {
+  max-height: 400px;
+  overflow-y: auto;
 }
 
 li {

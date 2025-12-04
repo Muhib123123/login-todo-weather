@@ -1,8 +1,8 @@
 import { useState } from "react";
 type Props = {
-  todo: { id: string; value: string };
+  todo: { id: string; value: string; css: number };
   setTodos: React.Dispatch<
-    React.SetStateAction<{ id: string; value: string }[]>
+    React.SetStateAction<{ id: string; value: string; css: number }[]>
   >;
   onClose: () => void;
   completedTodos: { id: string; value: string }[];
