@@ -1,6 +1,5 @@
-
 type Props = {
-  completedTodos: { id: string; value: string }[]; 
+  completedTodos: { id: string; value: string }[];
   setCompletedTodos: React.Dispatch<
     React.SetStateAction<{ id: string; value: string }[]>
   >; // changed

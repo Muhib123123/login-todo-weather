@@ -76,6 +76,21 @@ li {
   animation: fadeIn 0.5s ease-in-out;
 }
 
+.search-div {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.not-found {
+  margin: 40px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -88,7 +103,7 @@ li {
 }
 
 .li-deleted {
-  animation: fadeOut 0.5s ease-in-out;
+  animation: fadeOut 0.3s ease-in-out;
 }
 
 @keyframes fadeOut {
