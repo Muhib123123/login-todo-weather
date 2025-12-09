@@ -1,5 +1,5 @@
 import "./Todo.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TodoAll from "./Todo-all";
 import TodoCompleted from "./Todo-completed";
 import TodoNotCompleted from "./Todo-notCompleted";
@@ -15,7 +15,10 @@ function Todo() {
   const [completedTodos, setCompletedTodos] = useState<
     { id: string; value: string }[]
   >([]);
-  const [search, setSearch] = useState<{ value: string, notFound: boolean }>({ value: "", notFound: false });
+  const [search, setSearch] = useState<{ value: string; notFound: boolean }>({
+    value: "",
+    notFound: false,
+  });
   const [check, setCheck] = useState({
     all: true,
     completed: false,
@@ -24,18 +27,33 @@ function Todo() {
   const [completedDeleted, setCompletedDeleted] = useState<string[]>([]);
   const handleAddTodo = () => {
     if (inputValue.trim() !== "") {
-      setTodos([
+      const todo = [
         ...todos,
         { id: crypto.randomUUID(), value: inputValue.trim(), css: 0 },
-      ]);
+      ];
+      setTodos(todo);
+      localStorage.setItem("todos", JSON.stringify(todo));
       setInputValue("");
     }
   };
 
+  useEffect(() => {
+    const storedTodos = localStorage.getItem("todos");
+    if (storedTodos) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setTodos(JSON.parse(storedTodos));
+    }
+  }, []);
+
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    const found = value.trim() === "" ? false : todos.some((todo) => todo.value.toLowerCase().includes(value.toLowerCase()));
-    setSearch({value: value, notFound: !found});
+    const found =
+      value.trim() === ""
+        ? false
+        : todos.some((todo) =>
+            todo.value.toLowerCase().includes(value.toLowerCase())
+          );
+    setSearch({ value: value, notFound: !found });
   };
 
   const LiValue = {
@@ -62,6 +80,7 @@ function Todo() {
           onKeyDown={(e) => {
             if (e.key === "Enter") handleAddTodo();
           }}
+          className="shared-input-todo"
           maxLength={35}
         />
         <button className="add-button" onClick={handleAddTodo}>

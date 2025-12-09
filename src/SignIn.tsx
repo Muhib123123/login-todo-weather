@@ -221,6 +221,7 @@ export default function SignIn({ check, setCheck }: SignInProps) {
           value={form.name}
           onChange={handleName}
           placeholder="Your name"
+          className="shared-input"
           required
         />
 
@@ -230,6 +231,7 @@ export default function SignIn({ check, setCheck }: SignInProps) {
           onChange={handleEmail}
           placeholder="Your email"
           ref={emailRef}
+          className="shared-input"
           required
         />
 
@@ -241,6 +243,7 @@ export default function SignIn({ check, setCheck }: SignInProps) {
           min={0}
           max={99}
           ref={ageRef}
+          className="shared-input"
           required
         />
 
@@ -256,6 +259,7 @@ export default function SignIn({ check, setCheck }: SignInProps) {
             });
           }}
           checked={form.employed}
+          className="shared-input"
         />
 
         <SelectContext.Provider

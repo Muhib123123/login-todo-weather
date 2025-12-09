@@ -1,5 +1,5 @@
 import EditTodo from "./Edit-todo";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { TodoContext } from "./Creat-context";
 import { useRef } from "react";
 type Props = {
@@ -14,11 +14,26 @@ function SharedLi({ todo }: Props) {
     completedTodos,
     setCompletedTodos,
     setCompletedDeleted,
+    completedDeleted,
     todos,
   } = useContext(TodoContext);
   const handleClickDone = (ids: string, values: string) => {
-    setCompletedTodos((prev) => [...prev, { id: ids, value: values }]);
+    const completed = [...completedTodos, { id: ids, value: values }];
+    setCompletedTodos(completed);
+    localStorage.setItem("completedTodos", JSON.stringify(completed));
   };
+
+  useEffect(() => {
+    const storedCompletedTodos = localStorage.getItem("completedTodos");
+    if (storedCompletedTodos) {
+      setCompletedTodos(JSON.parse(storedCompletedTodos));
+    }
+    const storedCompletedDeleted = localStorage.getItem("completedDeleted");
+    if (storedCompletedDeleted) {
+      setCompletedDeleted(JSON.parse(storedCompletedDeleted));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const delRef = useRef<HTMLLIElement>(null);
   return (
@@ -27,6 +42,7 @@ function SharedLi({ todo }: Props) {
         <EditTodo
           todo={todo}
           setTodos={setTodos}
+          todos={todos}
           onClose={() => setEditingId(null)}
           completedTodos={completedTodos}
         />
@@ -61,8 +77,12 @@ function SharedLi({ todo }: Props) {
               onClick={() => {
                 delRef.current?.classList.add("li-deleted");
                 setTimeout(() => {
-                  setCompletedDeleted((prev) => [...prev, todo.id]);
-                  setTodos(todos.filter((t) => t.id !== todo.id));
+                  const prev = todos.filter((t) => t.id !== todo.id);
+                  setTodos(prev);
+                  localStorage.setItem("todos", JSON.stringify(prev));
+                  const id = [...completedDeleted, todo.id];
+                  setCompletedDeleted(id);
+                  localStorage.setItem("completedDeleted", JSON.stringify(id));
                 }, 280);
               }}
             >

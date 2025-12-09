@@ -1,6 +1,7 @@
 import { useState } from "react";
 type Props = {
   todo: { id: string; value: string; css: number };
+  todos: { id: string; value: string; css: number }[];
   setTodos: React.Dispatch<
     React.SetStateAction<{ id: string; value: string; css: number }[]>
   >;
@@ -8,12 +9,14 @@ type Props = {
   completedTodos: { id: string; value: string }[];
 };
 
-function EditTodo({ todo, setTodos, onClose, completedTodos }: Props) {
+function EditTodo({ todo, setTodos, onClose, completedTodos, todos }: Props) {
   const [newValue, setNewValue] = useState(todo.value);
   const handleSave = () => {
-    setTodos((prevTodos) =>
-      prevTodos.map((t) => (t.id === todo.id ? { ...t, value: newValue } : t))
+    const updatedTodos = todos.map((t) =>
+      t.id === todo.id ? { ...t, value: newValue } : t
     );
+    setTodos(updatedTodos);
+    localStorage.setItem("todos", JSON.stringify(updatedTodos));
     onClose();
   };
 

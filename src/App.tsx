@@ -46,7 +46,9 @@ function App() {
               check.goodToGo ? (
                 <Lists posts={posts} />
               ) : (
-                <h1>Please sign in first</h1>
+                <div className="sign-in-first">
+                  <h1>Please sign in first</h1>
+                </div>
               )
             }
           />

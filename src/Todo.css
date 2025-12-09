@@ -1,15 +1,14 @@
-input {
-    padding: 8px;
-    margin: 8px;
-    
+.shared-input-todo {
+    padding-left: 10px;
 }
+
 .add-button {
     padding: 8px 16px;
     margin: 8px;
 }
 
 .todo-container {
-    margin: 20px;
+    margin: 40px;
     padding: 20px;
     border: 2px solid #69336a;
     border-radius: 10px;
