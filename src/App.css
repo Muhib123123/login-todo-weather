@@ -197,6 +197,15 @@ button[type="submit"]:disabled {
   background-color: #555;
 }
 
+.lists-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .post-title {
   font-size: 2rem;
   color: var(--primary-color);

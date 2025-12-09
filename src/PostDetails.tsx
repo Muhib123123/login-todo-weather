@@ -8,7 +8,7 @@ function PostDetails() {
   console.log(id);
   const post = posts.find((p) => p.id === id);
   return (
-    <div>
+    <div className="lists-container">
       <h2>{post?.title}</h2>
       <p>{post?.body}</p>
     </div>

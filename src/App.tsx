@@ -46,20 +46,18 @@ function App() {
               check.goodToGo ? (
                 <Lists posts={posts} />
               ) : (
-                <div className="sign-in-first">
-                  <h1>Please sign in first</h1>
-                </div>
+                  <h1 className="sign-in-first">Please sign in first</h1>
               )
             }
           />
           <Route
             path=":id"
             element={
-              check.goodToGo ? <PostDetails /> : <h1>Please sign in first</h1>
+              check.goodToGo ? <PostDetails /> : <h1 className="sign-in-first">Please sign in first</h1>
             }
           />
         </Route>
-        <Route path="/todo" element={check.goodToGo ? <Todo /> : <h1>Please sign in first</h1>} />
+        <Route path="/todo" element={check.goodToGo ? <Todo /> : <h1 className="sign-in-first">Please sign in first</h1>} />
         <Route path="*" element={<h1>404 Page not found</h1>} />
       </Routes>
     </PostContext.Provider>
