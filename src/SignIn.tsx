@@ -1,8 +1,8 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import InvalidInputs from "./Invalid-Inputs";
 import InputComponent from "./Input-component";
 import SelectComponent from "./Select-component";
-import { SelectContext } from "./Creat-context";
+import { SelectContext } from "./user1/Create-context";
 import "./App.css";
 
 type SignInProps = {
@@ -20,8 +20,30 @@ type SignInProps = {
       goodToGo: boolean;
     }>
   >;
+  setEmailWithName: React.Dispatch<
+    React.SetStateAction<{
+      name: string;
+      email: string | null;
+    }>
+  >;
+  EmailWithName: {
+    name: string;
+    email: string | null;
+  };
 };
-export default function SignIn({ check, setCheck }: SignInProps) {
+export default function SignIn({
+  check,
+  setCheck,
+  setEmailWithName,
+  EmailWithName,
+}: SignInProps) {
+  useEffect(() => {
+    window.onbeforeunload = function (e) {
+      e.preventDefault();
+      localStorage.removeItem("email");
+    };
+  }, []);
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -97,7 +119,7 @@ export default function SignIn({ check, setCheck }: SignInProps) {
         ageRef.current.classList.remove("error");
       }
     }
-    
+
     if (!target) {
       if (ageRef.current) {
         ageRef.current.classList.remove("error");
@@ -199,6 +221,11 @@ export default function SignIn({ check, setCheck }: SignInProps) {
         ...check,
         goodToGo: true,
       });
+      setEmailWithName({
+        name: form.name,
+        email: form.email,
+      });
+      localStorage.setItem("email", form.email);
       setForm({
         name: "",
         email: "",
@@ -282,7 +309,11 @@ export default function SignIn({ check, setCheck }: SignInProps) {
       </form>
 
       {(check.age || check.name || check.goodToGo || check.email) && (
-        <InvalidInputs setCheck={setCheck} check={check} />
+        <InvalidInputs
+          setCheck={setCheck}
+          check={check}
+          emailWithName={EmailWithName}
+        />
       )}
     </>
   );

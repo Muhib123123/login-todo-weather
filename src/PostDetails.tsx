@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { PostContext } from "./Creat-context";
+import { PostContext } from "./user1/Create-context";
 import { useParams } from "react-router";
 
 function PostDetails() {

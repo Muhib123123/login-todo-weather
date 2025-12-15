@@ -1,7 +1,8 @@
 import EditTodo from "./Edit-todo";
 import { useContext, useEffect } from "react";
-import { TodoContext } from "./Creat-context";
+import { TodoContext } from "./Create-context";
 import { useRef } from "react";
+import { useToast } from "../Create-context-todo-toast";
 type Props = {
   todo: { id: string; value: string; css: number };
 };
@@ -17,10 +18,25 @@ function SharedLi({ todo }: Props) {
     completedDeleted,
     todos,
   } = useContext(TodoContext);
+  const Toast = useToast();
   const handleClickDone = (ids: string, values: string) => {
     const completed = [...completedTodos, { id: ids, value: values }];
     setCompletedTodos(completed);
     localStorage.setItem("completedTodos", JSON.stringify(completed));
+    Toast?.handleToastContext("Todo completed successfully");
+  };
+
+  const handleDeleted = () => {
+    delRef.current?.classList.add("li-deleted");
+    setTimeout(() => {
+      const prev = todos.filter((t) => t.id !== todo.id);
+      setTodos(prev);
+      localStorage.setItem("todos", JSON.stringify(prev));
+      const id = [...completedDeleted, todo.id];
+      setCompletedDeleted(id);
+      localStorage.setItem("completedDeleted", JSON.stringify(id));
+      Toast?.handleToastContext("Todo deleted successfully");
+    }, 280);
   };
 
   useEffect(() => {
@@ -32,7 +48,7 @@ function SharedLi({ todo }: Props) {
     if (storedCompletedDeleted) {
       setCompletedDeleted(JSON.parse(storedCompletedDeleted));
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const delRef = useRef<HTMLLIElement>(null);
@@ -72,20 +88,7 @@ function SharedLi({ todo }: Props) {
             >
               Edit
             </button>
-            <button
-              className="item-button-d"
-              onClick={() => {
-                delRef.current?.classList.add("li-deleted");
-                setTimeout(() => {
-                  const prev = todos.filter((t) => t.id !== todo.id);
-                  setTodos(prev);
-                  localStorage.setItem("todos", JSON.stringify(prev));
-                  const id = [...completedDeleted, todo.id];
-                  setCompletedDeleted(id);
-                  localStorage.setItem("completedDeleted", JSON.stringify(id));
-                }, 280);
-              }}
-            >
+            <button className="item-button-d" onClick={() => handleDeleted()}>
               Delete
             </button>
           </div>

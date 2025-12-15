@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useToast } from "../Create-context-todo-toast";
 type Props = {
   todo: { id: string; value: string; css: number };
   todos: { id: string; value: string; css: number }[];
@@ -11,12 +12,14 @@ type Props = {
 
 function EditTodo({ todo, setTodos, onClose, completedTodos, todos }: Props) {
   const [newValue, setNewValue] = useState(todo.value);
+  const Toast = useToast();
   const handleSave = () => {
     const updatedTodos = todos.map((t) =>
       t.id === todo.id ? { ...t, value: newValue } : t
     );
     setTodos(updatedTodos);
     localStorage.setItem("todos", JSON.stringify(updatedTodos));
+    Toast?.handleToastContext("Todo edited successfully");
     onClose();
   };
 

@@ -90,6 +90,22 @@ li {
   font-size: 14px;
 }
 
+.toast-container {
+  position: absolute;
+  left: 100px;
+  bottom: 100px;
+  color: aliceblue;
+}
+
+.toast {
+  background-color: rgb(8, 160, 39);
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+
 @keyframes fadeIn {
   from {
     opacity: 0;

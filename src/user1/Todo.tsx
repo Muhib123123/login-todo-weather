@@ -4,7 +4,8 @@ import TodoAll from "./Todo-all";
 import TodoCompleted from "./Todo-completed";
 import TodoNotCompleted from "./Todo-notCompleted";
 import Search from "./Search";
-import { TodoContext } from "./Creat-context";
+import { TodoContext } from "./Create-context";
+import { useToast } from "../Create-context-todo-toast";
 
 function Todo() {
   const [todos, setTodos] = useState<
@@ -25,6 +26,8 @@ function Todo() {
     notCompleted: false,
   });
   const [completedDeleted, setCompletedDeleted] = useState<string[]>([]);
+  const Toast = useToast();
+
   const handleAddTodo = () => {
     if (inputValue.trim() !== "") {
       const todo = [
@@ -34,6 +37,7 @@ function Todo() {
       setTodos(todo);
       localStorage.setItem("todos", JSON.stringify(todo));
       setInputValue("");
+      Toast?.handleToastContext("Todo added successfully");
     }
   };
 

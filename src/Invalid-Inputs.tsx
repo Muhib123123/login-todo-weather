@@ -10,8 +10,9 @@ type CheckState = {
 type InvalidInputsProps = {
   setCheck: React.Dispatch<React.SetStateAction<CheckState>>;
   check: CheckState;
+  emailWithName: { name: string; email: string | null};
 };
-export default function InvalidInputs({ setCheck, check }: InvalidInputsProps) {
+export default function InvalidInputs({ setCheck, check, emailWithName}: InvalidInputsProps) {
   if (check.age) {
     const handleCloseElement = () => {
       setCheck({
@@ -62,6 +63,7 @@ export default function InvalidInputs({ setCheck, check }: InvalidInputsProps) {
     );
   } else {
     const handleCloseElement = () => {
+      localStorage.removeItem("email");
       setCheck({
         ...check,
         goodToGo: false,
@@ -72,7 +74,7 @@ export default function InvalidInputs({ setCheck, check }: InvalidInputsProps) {
         <div className="modal-content">
           <h2>Form submitted successfully!</h2>
           <Link to="/posts">Posts page</Link>
-          <Link to="/todo">Todo page</Link>
+          {emailWithName.email == "muhib2@gmail.com" ? <Link to="/todo2">Todo page2</Link> : emailWithName.email == "muhib@gmail.com" && <Link to="/todo">Todo page</Link>}
           <button onClick={handleCloseElement}>Log out</button>
         </div>
       </div>

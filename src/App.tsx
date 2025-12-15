@@ -4,8 +4,10 @@ import SignIn from "./SignIn";
 import { Route, Routes } from "react-router";
 import Lists from "./Lists";
 import PostDetails from "./PostDetails";
-import { PostContext } from "./Creat-context";
-import Todo from "./Todo";
+import { PostContext } from "./user1/Create-context";
+import Todo from "./user1/Todo";
+import Todo2 from "./user2/Todo2";
+import { ToastProvider } from "./Create-context-todo-toast";
 
 function App() {
   const posts = [
@@ -32,34 +34,72 @@ function App() {
     goodToGo: false,
   });
 
+  const [emailWithName, setEmailWithName] = useState({
+    name: "",
+    email: localStorage.getItem("email"),
+  });
+
   return (
     <PostContext.Provider value={{ posts }}>
-      <Routes>
-        <Route
-          path="/"
-          element={<SignIn check={check} setCheck={setCheck} />}
-        />
-        <Route path="/posts">
+      <ToastProvider>
+        <Routes>
           <Route
-            index
+            path="/"
             element={
-              check.goodToGo ? (
-                <Lists posts={posts} />
-              ) : (
+              <SignIn
+                check={check}
+                setCheck={setCheck}
+                setEmailWithName={setEmailWithName}
+                EmailWithName={emailWithName}
+              />
+            }
+          />
+          <Route path="/posts">
+            <Route
+              index
+              element={
+                check.goodToGo ? (
+                  <Lists posts={posts} />
+                ) : (
                   <h1 className="sign-in-first">Please sign in first</h1>
+                )
+              }
+            />
+            <Route
+              path=":id"
+              element={
+                check.goodToGo ? (
+                  <PostDetails />
+                ) : (
+                  <h1 className="sign-in-first">Please sign in first</h1>
+                )
+              }
+            />
+          </Route>
+          <Route
+            path="/todo"
+            element={
+              emailWithName.email == "muhib@gmail.com" ? (
+                <Todo />
+              ) : (
+                <h1 className="sign-in-first">You have no access</h1>
               )
             }
           />
           <Route
-            path=":id"
+            path="/todo2"
             element={
-              check.goodToGo ? <PostDetails /> : <h1 className="sign-in-first">Please sign in first</h1>
+              emailWithName.email == "muhib2@gmail.com" ? (
+                <Todo2 />
+              ) : (
+                <h1 className="sign-in-first">You have no access</h1>
+              )
             }
           />
-        </Route>
-        <Route path="/todo" element={check.goodToGo ? <Todo /> : <h1 className="sign-in-first">Please sign in first</h1>} />
-        <Route path="*" element={<h1>404 Page not found</h1>} />
-      </Routes>
+
+          <Route path="*" element={<h1>404 Page not found</h1>} />
+        </Routes>
+      </ToastProvider>
     </PostContext.Provider>
   );
 }
