@@ -3,13 +3,16 @@ import { useContext, useEffect } from "react";
 import { TodoContext } from "./Create-context";
 import { useRef } from "react";
 import { useToast } from "../Create-context-todo-toast";
+import { useReducerContext } from "./Create-context";
+
 type Props = {
   todo: { id: string; value: string; css: number };
 };
 
 function SharedLi({ todo }: Props) {
+  const { dispatch } = useReducerContext();
+
   const {
-    setTodos,
     editingId,
     setEditingId,
     completedTodos,
@@ -29,9 +32,7 @@ function SharedLi({ todo }: Props) {
   const handleDeleted = () => {
     delRef.current?.classList.add("li-deleted");
     setTimeout(() => {
-      const prev = todos.filter((t) => t.id !== todo.id);
-      setTodos(prev);
-      localStorage.setItem("todos", JSON.stringify(prev));
+      dispatch({ type: "DELETE_TODO", payload: { todo } });
       const id = [...completedDeleted, todo.id];
       setCompletedDeleted(id);
       localStorage.setItem("completedDeleted", JSON.stringify(id));
@@ -57,7 +58,6 @@ function SharedLi({ todo }: Props) {
       {editingId === todo.id ? (
         <EditTodo
           todo={todo}
-          setTodos={setTodos}
           todos={todos}
           onClose={() => setEditingId(null)}
           completedTodos={completedTodos}

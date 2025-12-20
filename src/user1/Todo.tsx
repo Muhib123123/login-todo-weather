@@ -1,16 +1,15 @@
 import "./Todo.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import TodoAll from "./Todo-all";
 import TodoCompleted from "./Todo-completed";
 import TodoNotCompleted from "./Todo-notCompleted";
 import Search from "./Search";
 import { TodoContext } from "./Create-context";
 import { useToast } from "../Create-context-todo-toast";
+import { useReducerContext } from "./Create-context"; 
 
 function Todo() {
-  const [todos, setTodos] = useState<
-    { id: string; value: string; css: number }[]
-  >([]);
+  const { todos, dispatch } = useReducerContext();
   const [inputValue, setInputValue] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [completedTodos, setCompletedTodos] = useState<
@@ -29,25 +28,13 @@ function Todo() {
   const Toast = useToast();
 
   const handleAddTodo = () => {
-    if (inputValue.trim() !== "") {
-      const todo = [
-        ...todos,
-        { id: crypto.randomUUID(), value: inputValue.trim(), css: 0 },
-      ];
-      setTodos(todo);
-      localStorage.setItem("todos", JSON.stringify(todo));
+      dispatch({ type: "ADD_TODO", payload: { inputValue: inputValue } });
+      if (inputValue.trim() !== "") {
       setInputValue("");
       Toast?.handleToastContext("Todo added successfully");
     }
   };
 
-  useEffect(() => {
-    const storedTodos = localStorage.getItem("todos");
-    if (storedTodos) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setTodos(JSON.parse(storedTodos));
-    }
-  }, []);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -61,7 +48,6 @@ function Todo() {
   };
 
   const LiValue = {
-    setTodos: setTodos,
     editingId: editingId,
     setEditingId: setEditingId,
     completedTodos: completedTodos,
