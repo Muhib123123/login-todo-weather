@@ -6,7 +6,7 @@ import TodoNotCompleted from "./Todo-notCompleted";
 import Search from "./Search";
 import { TodoContext } from "./Create-context";
 import { useToast } from "../Create-context-todo-toast";
-import { useReducerContext } from "./Create-context"; 
+import { useReducerContext } from "./Create-context";
 
 function Todo() {
   const { todos, dispatch } = useReducerContext();
@@ -28,13 +28,12 @@ function Todo() {
   const Toast = useToast();
 
   const handleAddTodo = () => {
-      dispatch({ type: "ADD_TODO", payload: { inputValue: inputValue } });
-      if (inputValue.trim() !== "") {
+    dispatch({ type: "ADD_TODO", payload: { inputValue: inputValue } });
+    if (inputValue.trim() !== "") {
       setInputValue("");
       Toast?.handleToastContext("Todo added successfully");
     }
   };
-
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;

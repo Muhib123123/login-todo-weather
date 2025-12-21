@@ -1,14 +1,14 @@
 import { useState } from "react";
 import "./App.css";
-import SignIn from "./SignIn";
+import SignIn from "./Sign_In/SignIn";
 import { Route, Routes } from "react-router";
-import Lists from "./Lists";
-import PostDetails from "./PostDetails";
-import { PostContext } from "./user1/Create-context";
-import Todo from "./user1/Todo";
-import Todo2 from "./user2/Todo2";
-import { ToastProvider } from "./Create-context-todo-toast";
-import ReducerProvider from "./user1/Create-context";
+import Lists from "./Posts/Lists";
+import PostDetails from "./Posts/PostDetails";
+import { PostContext } from "./Todo_List/user1/Create-context";
+import Todo from "./Todo_List/user1/Todo";
+import Todo2 from "./Todo_List/user2/Todo2";
+import { ToastProvider } from "./Todo_List/Create-context-todo-toast";
+import ReducerProvider from "./Todo_List/user1/Create-context";
 
 function App() {
   const posts = [
@@ -82,11 +82,11 @@ function App() {
             <Route
               path="/todo"
               element={
-                // emailWithName.email == "muhib@gmail.com" ? (
+                emailWithName.email == "muhib@gmail.com" ? (
                   <Todo />
-                // ) : (
-                //   <h1 className="sign-in-first">You have no access</h1>
-                // )
+                ) : (
+                  <h1 className="sign-in-first">You have no access</h1>
+                )
               }
             />
             <Route
