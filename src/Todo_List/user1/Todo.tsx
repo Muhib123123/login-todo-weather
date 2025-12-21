@@ -1,5 +1,5 @@
 import "./Todo.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TodoAll from "./Todo-all";
 import TodoCompleted from "./Todo-completed";
 import TodoNotCompleted from "./Todo-notCompleted";
@@ -55,6 +55,22 @@ function Todo() {
     todos: todos,
     completedDeleted: completedDeleted,
   };
+
+  useEffect(() => {
+    const storedTodos = localStorage.getItem("todos");
+    if (storedTodos) {
+      dispatch({
+        type: "GET_TODOS",
+        payload: { todos: JSON.parse(storedTodos) },
+      });
+    }
+    const storedCompletedTodos = localStorage.getItem("completedTodos");
+    if (storedCompletedTodos) {
+      setCompletedTodos(JSON.parse(storedCompletedTodos));
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="todo-container">

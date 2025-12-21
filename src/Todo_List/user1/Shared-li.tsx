@@ -1,5 +1,5 @@
 import EditTodo from "./Edit-todo";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { TodoContext } from "./Create-context";
 import { useRef } from "react";
 import { useToast } from "../Create-context-todo-toast";
@@ -35,22 +35,10 @@ function SharedLi({ todo }: Props) {
       dispatch({ type: "DELETE_TODO", payload: { todo } });
       const id = [...completedDeleted, todo.id];
       setCompletedDeleted(id);
-      localStorage.setItem("completedDeleted", JSON.stringify(id));
       Toast?.handleToastContext("Todo deleted successfully");
     }, 280);
   };
 
-  useEffect(() => {
-    const storedCompletedTodos = localStorage.getItem("completedTodos");
-    if (storedCompletedTodos) {
-      setCompletedTodos(JSON.parse(storedCompletedTodos));
-    }
-    const storedCompletedDeleted = localStorage.getItem("completedDeleted");
-    if (storedCompletedDeleted) {
-      setCompletedDeleted(JSON.parse(storedCompletedDeleted));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const delRef = useRef<HTMLLIElement>(null);
   return (

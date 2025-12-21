@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { useToast } from "../Create-context-todo-toast";
 type Props = {
   completedTodos: { id: string; value: string }[];
@@ -24,7 +24,6 @@ function TodoCompleted({
       setTimeout(() => {
         const id = [...completedDeleted, todo.id];
         setCompletedDeleted(id);
-        localStorage.setItem("completedDeleted", JSON.stringify(id));
         const prev = [...completedTodos];
         setCompletedTodos((prev) => prev.filter((t) => t.id !== todo.id));
         localStorage.setItem(
@@ -34,17 +33,6 @@ function TodoCompleted({
       }, 230);
     }
   };
-  useEffect(() => {
-    const storedCompletedTodos = localStorage.getItem("completedTodos");
-    if (storedCompletedTodos) {
-      setCompletedTodos(JSON.parse(storedCompletedTodos));
-    }
-    const storedCompletedDeleted = localStorage.getItem("completedDeleted");
-    if (storedCompletedDeleted) {
-      setCompletedDeleted(JSON.parse(storedCompletedDeleted));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   const liRefs = useRef<{ [key: string]: HTMLLIElement | null }>({});
   return (
     <ul>

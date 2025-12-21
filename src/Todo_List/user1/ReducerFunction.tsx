@@ -46,6 +46,12 @@ const ReducerFunction = (state: Todo[], action: Action): Todo[] => {
       }
       return state;
     }
+    case "GET_TODOS": {
+      if (action.payload && action.payload.todos) {
+        return action.payload.todos;
+      }
+      return state;
+    }
     default:
       return state;
   }
