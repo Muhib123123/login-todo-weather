@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "./App.css";
 
-
 import SignIn from "./Sign_In/SignIn";
 import Lists from "./Posts/Lists";
 import PostDetails from "./Posts/PostDetails";
@@ -13,8 +12,6 @@ import { Route, Routes } from "react-router";
 import { PostContext } from "./Todo_List/user1/Create-context";
 import { ToastProvider } from "./Todo_List/Create-context-todo-toast";
 import ReducerProvider from "./Todo_List/user1/Create-context";
-
-
 
 function App() {
   const posts = [
@@ -105,7 +102,17 @@ function App() {
                 )
               }
             />
-            <Route path="/weather" element={emailWithName.email == "muhib2@gmail.com" || emailWithName.email == "muhib@gmail.com" ? <Weather /> : <h1 className="sign-in-first">Please sign in first</h1>}/>
+            <Route
+              path="/weather"
+              element={
+                // emailWithName.email == "muhib2@gmail.com" ||
+                // emailWithName.email == "muhib@gmail.com" ? (
+                  <Weather />
+                // ) : (
+                //   <h1 className="sign-in-first">Please sign in first</h1>
+                // )
+              }
+            />
             <Route path="*" element={<h1>404 Page not found</h1>} />
           </Routes>
         </ReducerProvider>

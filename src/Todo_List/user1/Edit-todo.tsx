@@ -32,7 +32,7 @@ function EditTodo({ todo, onClose, completedTodos }: Props) {
               if (e.key === "Enter") handleSave();
             }}
           />
-          <button className="item-button-e" onClick={handleSave}>
+          <button className="item-button-e edit-button-save" onClick={handleSave}>
             Save
           </button>
           <button className="item-button-d" onClick={onClose}>

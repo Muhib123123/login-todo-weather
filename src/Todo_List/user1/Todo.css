@@ -40,20 +40,24 @@ li {
 }
 
 .item-button-d {
-    padding:5px 8px;
+    padding: 5px 8px;
     font-size: small;
     background-color: red;
 }
 
 .item-button-e {
-    padding:5px 8px;
+    padding: 5px 8px;
     font-size: small;
     background-color: green;
     margin-right: 10px;
 }
 
+.edit-button-save {
+  margin-left: 10px;
+}
+
 .item-button-done {
-    padding:5px 8px;
+    padding: 5px 8px;
     font-size: small;
     background-color: blue;
     margin-right: 10px;

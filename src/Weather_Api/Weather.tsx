@@ -22,7 +22,7 @@ const Weather = () => {
   const handleHagClick = () => {
     axios
       .get(
-        "https://api.openweathermap.org/data/2.5/weather?lat=52.0705&lon=4.3007&units=metric&appid=c15b2d5b95dd742d47e6da815ce374a8"
+        "https://api.openweathermap.org/data/2.5/weather?q=The+Hague,NL&units=metric&appid=c15b2d5b95dd742d47e6da815ce374a8"
       )
       .then((res) => {
         const data = res.data;
@@ -65,7 +65,8 @@ const Weather = () => {
     axios
       .get(
         "https://api.openweathermap.org/data/2.5/weather?lat=52.3676&lon=4.9041&units=metric&appid=c15b2d5b95dd742d47e6da815ce374a8"
-      ).then((res) => {
+      )
+      .then((res) => {
         const data = res.data;
         setWeather({
           ...weather,
@@ -75,7 +76,7 @@ const Weather = () => {
           icon: data.weather[0].icon,
           humidity: data.main.humidity,
         });
-        })
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -100,7 +101,91 @@ const Weather = () => {
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
+
+  const handleMasClick = () => {
+    axios
+      .get(
+        "https://api.openweathermap.org/data/2.5/weather?q=Massachusetts,US&units=metric&appid=c15b2d5b95dd742d47e6da815ce374a8"
+      )
+      .then((res) => {
+        const data = res.data;
+        setWeather({
+          ...weather,
+          city: data.name,
+          temp: Math.round(data.main.temp),
+          icon: data.weather[0].icon,
+          windSpeed: data.wind.speed,
+          humidity: data.main.humidity,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleAleClick = () => {
+    axios
+      .get(
+        "https://api.openweathermap.org/data/2.5/weather?q=Aleppo,SY&units=metric&appid=c15b2d5b95dd742d47e6da815ce374a8"
+      )
+      .then((res) => {
+        const data = res.data;
+        setWeather({
+          ...weather,
+          city: data.name,
+          temp: Math.round(data.main.temp),
+          icon: data.weather[0].icon,
+          windSpeed: data.wind.speed,
+          humidity: data.main.humidity,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleIstClick = () => {
+    axios
+      .get(
+        "https://api.openweathermap.org/data/2.5/weather?q=Istanbul,TR&units=metric&appid=c15b2d5b95dd742d47e6da815ce374a8"
+      )
+      .then((res) => {
+        const data = res.data;
+        setWeather({
+          ...weather,
+          city: data.name,
+          temp: Math.round(data.main.temp),
+          icon: data.weather[0].icon,
+          windSpeed: data.wind.speed,
+          humidity: data.main.humidity,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleSalClick = () => {
+    axios
+      .get(
+        "https://api.openweathermap.org/data/2.5/weather?q=Salalah,OM&units=metric&appid=c15b2d5b95dd742d47e6da815ce374a8"
+      )
+      .then((res) => {
+        const data = res.data;
+        setWeather({
+          ...weather,
+          city: data.name,
+          temp: Math.round(data.main.temp),
+          icon: data.weather[0].icon,
+          windSpeed: data.wind.speed,
+          humidity: data.main.humidity,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     axios
@@ -169,6 +254,18 @@ const Weather = () => {
         </div>
         <div>
           <button onClick={handleRotClick}>Rotterdam</button>
+        </div>
+        <div>
+          <button onClick={handleMasClick}>Massachusetts</button>
+        </div>
+        <div>
+          <button onClick={handleAleClick}>Aleppo</button>
+        </div>
+        <div>
+          <button onClick={handleIstClick}>Istanbul</button>
+        </div>
+        <div>
+          <button onClick={handleSalClick}>Salalah</button>
         </div>
       </div>
     </div>
