@@ -1,14 +1,20 @@
 import { useState } from "react";
 import "./App.css";
+
+
 import SignIn from "./Sign_In/SignIn";
-import { Route, Routes } from "react-router";
 import Lists from "./Posts/Lists";
 import PostDetails from "./Posts/PostDetails";
-import { PostContext } from "./Todo_List/user1/Create-context";
 import Todo from "./Todo_List/user1/Todo";
 import Todo2 from "./Todo_List/user2/Todo2";
+import Weather from "./Weather_Api/Weather";
+
+import { Route, Routes } from "react-router";
+import { PostContext } from "./Todo_List/user1/Create-context";
 import { ToastProvider } from "./Todo_List/Create-context-todo-toast";
 import ReducerProvider from "./Todo_List/user1/Create-context";
+
+
 
 function App() {
   const posts = [
@@ -99,7 +105,7 @@ function App() {
                 )
               }
             />
-
+            <Route path="/weather" element={<Weather />}/>
             <Route path="*" element={<h1>404 Page not found</h1>} />
           </Routes>
         </ReducerProvider>
