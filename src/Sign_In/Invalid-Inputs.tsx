@@ -75,6 +75,7 @@ export default function InvalidInputs({ setCheck, check, emailWithName}: Invalid
           <h2>Form submitted successfully!</h2>
           <Link to="/posts">Posts page</Link>
           {emailWithName.email == "muhib2@gmail.com" ? <Link to="/todo2">Todo page2</Link> : emailWithName.email == "muhib@gmail.com" && <Link to="/todo">Todo page</Link>}
+          {emailWithName.email == "muhib2@gmail.com" || emailWithName.email == "muhib@gmail.com" ? <Link to="/weather">Weather page</Link> : null}
           <button onClick={handleCloseElement}>Log out</button>
         </div>
       </div>
