@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./Weather.css";
 import axios from "axios";
 
@@ -18,6 +18,31 @@ const Weather = () => {
     icon: undefined,
     humidity: undefined,
   });
+  const [search, setSearch] = useState<string>("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleSearchClick = () => {
+    axios
+      .get(
+        `https://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=c15b2d5b95dd742d47e6da815ce374a8`
+      )
+      .then((res) => {
+        const data = res.data;
+        setWeather({
+          ...weather,
+          city: data.name,
+          temp: Math.round(data.main.temp),
+          windSpeed: data.wind.speed,
+          icon: data.weather[0].icon,
+          humidity: data.main.humidity,
+        });
+        setSearch("");
+      })
+      .catch((err) => {
+        console.log(err);
+        setSearch("City not found");
+      });
+  };
 
   const handleHagClick = () => {
     axios
@@ -266,6 +291,17 @@ const Weather = () => {
         </div>
         <div>
           <button onClick={handleSalClick}>Salalah</button>
+        </div>
+        <div className="weather-search">
+          <input
+            type="text"
+            placeholder="Search city..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            ref={inputRef}
+            onKeyDown={(e) => e.key === "Enter" && handleSearchClick()}
+          />
+          <button onClick={handleSearchClick}>Search</button>
         </div>
       </div>
     </div>
