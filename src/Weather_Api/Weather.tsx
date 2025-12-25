@@ -4,6 +4,7 @@ import axios from "axios";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
 
+
 type Weather = {
   city: string | undefined;
   temp: number | undefined;
@@ -23,6 +24,7 @@ const Weather = () => {
   const [search, setSearch] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
   const { t, i18n } = useTranslation();
+
 
   const handleSearchClick = () => {
     axios
@@ -237,6 +239,7 @@ const Weather = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
+    <>
     <div className="weather-page-container">
       <div className="weather-info-container">
         <div className="weather-date">
@@ -274,7 +277,7 @@ const Weather = () => {
       </div>
       <div className="weather-cities">
         <div>
-          <button onClick={handleHagClick}>The Hague</button>
+          <button onClick={handleHagClick}>{t("The Hague")}</button>
         </div>
         <div>
           <button onClick={handleWasClick}>Wassenaar</button>
@@ -325,6 +328,8 @@ const Weather = () => {
         </select>
       </div>
     </div>
+
+    </>
   );
 };
 
