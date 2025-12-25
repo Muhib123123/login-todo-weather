@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { multi } from "../features/search/searchSlice";
+import { multi } from "../features/calc/calcSlice";
 import { type RootState } from "../app/store";
 
 export default function Lists({

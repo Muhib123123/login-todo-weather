@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect, useRef } from "react";
 import "./Weather.css";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
-
+import { useDispatch } from "react-redux";
+import { fetchWeather, fetchWeather2 } from "../features/fetch/fetchSlice";
 
 type Weather = {
   city: string | undefined;
@@ -12,8 +14,10 @@ type Weather = {
   icon: string | undefined;
   humidity: number | undefined;
 };
+    
 
 const Weather = () => {
+  const { t, i18n } = useTranslation();
   const [weather, setWeather] = useState<Weather>({
     city: undefined,
     temp: undefined,
@@ -23,51 +27,43 @@ const Weather = () => {
   });
   const [search, setSearch] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
-  const { t, i18n } = useTranslation();
+  
 
+  const dispatch = useDispatch<any>();
 
   const handleSearchClick = () => {
-    axios
-      .get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&lang=${i18n.language}&appid=c15b2d5b95dd742d47e6da815ce374a8`
-      )
-      .then((res) => {
-        const data = res.data;
-        setWeather({
-          ...weather,
-          city: data.name,
-          temp: Math.round(data.main.temp),
-          windSpeed: data.wind.speed,
-          icon: data.weather[0].icon,
-          humidity: data.main.humidity,
-        });
-        setSearch("");
-      })
-      .catch((err) => {
-        console.log(err);
-        setSearch(t("City not found"));
-      });
+    dispatch(fetchWeather2({ cityName: search, i18nLang: i18n.language })).then(
+      (action: any) => {
+        if (fetchWeather2.fulfilled.match(action)) {
+          const data = action.payload;
+          setWeather({
+            city: data.name,
+            temp: Math.round(data.main.temp),
+            windSpeed: data.wind.speed,
+            icon: data.weather[0].icon,
+            humidity: data.main.humidity,
+          });
+          setSearch("");
+        } else {
+          setSearch(t("City not found"));
+        }
+      }
+    );
   };
 
   const handleHagClick = () => {
-    axios
-      .get(
-        `https://api.openweathermap.org/data/2.5/weather?q=The+Hague,NL&units=metric&lang=${i18n.language}&appid=c15b2d5b95dd742d47e6da815ce374a8`
-      )
-      .then((res) => {
-        const data = res.data;
+    dispatch(fetchWeather({ i18nLang: i18n.language })).then((action: any) => {
+      const data = action.payload;
+      if (data) {
         setWeather({
-          ...weather,
           city: data.name,
           temp: Math.round(data.main.temp),
           windSpeed: data.wind.speed,
           icon: data.weather[0].icon,
           humidity: data.main.humidity,
         });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      }
+    });
   };
 
   const handleWasClick = () => {
@@ -218,117 +214,99 @@ const Weather = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(
-        `https://api.openweathermap.org/data/2.5/weather?q=The+Hague,NL&units=metric&lang=${i18n.language}&appid=c15b2d5b95dd742d47e6da815ce374a8`
-      )
-      .then((respense) => {
-        const res = respense.data;
-        setWeather({
-          ...weather,
-          city: res.name,
-          temp: Math.round(res.main.temp),
-          windSpeed: res.wind.speed,
-          icon: res.weather[0].icon,
-          humidity: res.main.humidity,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    handleHagClick();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
-    <div className="weather-page-container">
-      <div className="weather-info-container">
-        <div className="weather-date">
-          <p>{moment().format('LLL')}</p>
-        </div>
-        <div className="weather-img">
-          <img
-            src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`}
-            alt=""
-          />
-        </div>
-        <div className="weather-info">
-          <div className="weather-degree">
-            <h1>{weather.temp}</h1>
-            <p>°</p>
+      <div className="weather-page-container">
+        <div className="weather-info-container">
+          <div className="weather-date">
+            <p>{moment().format("LLL")}</p>
           </div>
-          <div className="weather-more-info">
-            <div>
-              <p className="pw top-p">{t("Humidity")}:</p>
+          <div className="weather-img">
+            <img
+              src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`}
+              alt=""
+            />
+          </div>
+          <div className="weather-info">
+            <div className="weather-degree">
+              <h1>{weather.temp}</h1>
+              <p>°</p>
             </div>
-            <div>
-              <p className="top-p">{weather.humidity}%</p>
-            </div>
-            <div>
-              <p className="pw">{t("Wind Speed")}:</p>
-            </div>
-            <div>
-              <p>{weather.windSpeed} m/s</p>
+            <div className="weather-more-info">
+              <div>
+                <p className="pw top-p">{t("Humidity")}:</p>
+              </div>
+              <div>
+                <p className="top-p">{weather.humidity}%</p>
+              </div>
+              <div>
+                <p className="pw">{t("Wind Speed")}:</p>
+              </div>
+              <div>
+                <p>{weather.windSpeed} m/s</p>
+              </div>
             </div>
           </div>
+          <div className="weather-city">
+            <h1>{weather.city}</h1>
+          </div>
         </div>
-        <div className="weather-city">
-          <h1>{weather.city}</h1>
+        <div className="weather-cities">
+          <div>
+            <button onClick={handleHagClick}>{t("The Hague")}</button>
+          </div>
+          <div>
+            <button onClick={handleWasClick}>Wassenaar</button>
+          </div>
+          <div>
+            <button onClick={handleAmsClick}>Amsterdam</button>
+          </div>
+          <div>
+            <button onClick={handleRotClick}>Rotterdam</button>
+          </div>
+          <div>
+            <button onClick={handleMasClick}>Massachusetts</button>
+          </div>
+          <div>
+            <button onClick={handleAleClick}>Aleppo</button>
+          </div>
+          <div>
+            <button onClick={handleIstClick}>Istanbul</button>
+          </div>
+          <div>
+            <button onClick={handleSalClick}>Salalah</button>
+          </div>
+          <div className="weather-search">
+            <input
+              type="text"
+              placeholder={`${t("Search city")}...`}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              ref={inputRef}
+              onKeyDown={(e) => e.key === "Enter" && handleSearchClick()}
+            />
+            <button onClick={handleSearchClick}>
+              {}
+              {t("Search")}
+            </button>
+          </div>
+        </div>
+        <div className="weather-lang">
+          <select
+            value={i18n.language}
+            onChange={(e) => {
+              i18n.changeLanguage(e.target.value);
+              window.location.reload();
+            }}
+          >
+            <option value="en">English</option>
+            <option value="nl">Nederlands</option>
+          </select>
         </div>
       </div>
-      <div className="weather-cities">
-        <div>
-          <button onClick={handleHagClick}>{t("The Hague")}</button>
-        </div>
-        <div>
-          <button onClick={handleWasClick}>Wassenaar</button>
-        </div>
-        <div>
-          <button onClick={handleAmsClick}>Amsterdam</button>
-        </div>
-        <div>
-          <button onClick={handleRotClick}>Rotterdam</button>
-        </div>
-        <div>
-          <button onClick={handleMasClick}>Massachusetts</button>
-        </div>
-        <div>
-          <button onClick={handleAleClick}>Aleppo</button>
-        </div>
-        <div>
-          <button onClick={handleIstClick}>Istanbul</button>
-        </div>
-        <div>
-          <button onClick={handleSalClick}>Salalah</button>
-        </div>
-        <div className="weather-search">
-          <input
-            type="text"
-            placeholder={`${t("Search city")}...`}
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            ref={inputRef}
-            onKeyDown={(e) => e.key === "Enter" && handleSearchClick()}
-          />
-          <button onClick={handleSearchClick}>
-            {}
-            {t("Search")}
-          </button>
-        </div>
-      </div>
-      <div className="weather-lang">
-        <select
-          value={i18n.language}
-          onChange={(e) => {
-            i18n.changeLanguage(e.target.value)
-            window.location.reload();
-          } }
-        >
-          <option value="en">English</option>
-          <option value="nl">Nederlands</option>
-        </select>
-      </div>
-    </div>
-
     </>
   );
 };
