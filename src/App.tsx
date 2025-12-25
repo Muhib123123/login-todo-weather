@@ -106,12 +106,12 @@ function App() {
             <Route
               path="/weather"
               element={
-                emailWithName.email == "muhib2@gmail.com" ||
-                emailWithName.email == "muhib@gmail.com" ? (
+                // emailWithName.email == "muhib2@gmail.com" ||
+                // emailWithName.email == "muhib@gmail.com" ? (
                   <Weather />
-                ) : (
-                  <h1 className="sign-in-first">Please sign in first</h1>
-                )
+                // ) : (
+                //   <h1 className="sign-in-first">Please sign in first</h1>
+                // )
               }
             />
             <Route path="*" element={<h1>404 Page not found</h1>} />

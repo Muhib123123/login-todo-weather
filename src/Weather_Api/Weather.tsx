@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import "./Weather.css";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
+import moment from "moment";
 
 type Weather = {
   city: string | undefined;
@@ -20,11 +22,12 @@ const Weather = () => {
   });
   const [search, setSearch] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const { t, i18n } = useTranslation();
 
   const handleSearchClick = () => {
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&appid=c15b2d5b95dd742d47e6da815ce374a8`
+        `https://api.openweathermap.org/data/2.5/weather?q=${search}&units=metric&lang=${i18n.language}&appid=c15b2d5b95dd742d47e6da815ce374a8`
       )
       .then((res) => {
         const data = res.data;
@@ -40,14 +43,14 @@ const Weather = () => {
       })
       .catch((err) => {
         console.log(err);
-        setSearch("City not found");
+        setSearch(t("City not found"));
       });
   };
 
   const handleHagClick = () => {
     axios
       .get(
-        "https://api.openweathermap.org/data/2.5/weather?q=The+Hague,NL&units=metric&appid=c15b2d5b95dd742d47e6da815ce374a8"
+        `https://api.openweathermap.org/data/2.5/weather?q=The+Hague,NL&units=metric&lang=${i18n.language}&appid=c15b2d5b95dd742d47e6da815ce374a8`
       )
       .then((res) => {
         const data = res.data;
@@ -68,7 +71,7 @@ const Weather = () => {
   const handleWasClick = () => {
     axios
       .get(
-        "https://api.openweathermap.org/data/2.5/weather?lat=52.1429&lon=4.4012&units=metric&appid=c15b2d5b95dd742d47e6da815ce374a8"
+        `https://api.openweathermap.org/data/2.5/weather?lat=52.1429&lon=4.4012&units=metric&lang=${i18n.language}&appid=c15b2d5b95dd742d47e6da815ce374a8`
       )
       .then((res) => {
         const data = res.data;
@@ -89,7 +92,7 @@ const Weather = () => {
   const handleAmsClick = () => {
     axios
       .get(
-        "https://api.openweathermap.org/data/2.5/weather?lat=52.3676&lon=4.9041&units=metric&appid=c15b2d5b95dd742d47e6da815ce374a8"
+        `https://api.openweathermap.org/data/2.5/weather?lat=52.3676&lon=4.9041&units=metric&lang=${i18n.language}&appid=c15b2d5b95dd742d47e6da815ce374a8`
       )
       .then((res) => {
         const data = res.data;
@@ -110,7 +113,7 @@ const Weather = () => {
   const handleRotClick = () => {
     axios
       .get(
-        "https://api.openweathermap.org/data/2.5/weather?lat=51.9244&lon=4.4777&units=metric&appid=c15b2d5b95dd742d47e6da815ce374a8"
+        `https://api.openweathermap.org/data/2.5/weather?lat=51.9244&lon=4.4777&units=metric&lang=${i18n.language}&appid=c15b2d5b95dd742d47e6da815ce374a8`
       )
       .then((res) => {
         const data = res.data;
@@ -131,7 +134,7 @@ const Weather = () => {
   const handleMasClick = () => {
     axios
       .get(
-        "https://api.openweathermap.org/data/2.5/weather?q=Massachusetts,US&units=metric&appid=c15b2d5b95dd742d47e6da815ce374a8"
+        `https://api.openweathermap.org/data/2.5/weather?q=Massachusetts,US&units=metric&lang=${i18n.language}&appid=c15b2d5b95dd742d47e6da815ce374a8`
       )
       .then((res) => {
         const data = res.data;
@@ -152,7 +155,7 @@ const Weather = () => {
   const handleAleClick = () => {
     axios
       .get(
-        "https://api.openweathermap.org/data/2.5/weather?q=Aleppo,SY&units=metric&appid=c15b2d5b95dd742d47e6da815ce374a8"
+        `https://api.openweathermap.org/data/2.5/weather?q=Aleppo,SY&units=metric&lang=${i18n.language}&appid=c15b2d5b95dd742d47e6da815ce374a8`
       )
       .then((res) => {
         const data = res.data;
@@ -173,7 +176,7 @@ const Weather = () => {
   const handleIstClick = () => {
     axios
       .get(
-        "https://api.openweathermap.org/data/2.5/weather?q=Istanbul,TR&units=metric&appid=c15b2d5b95dd742d47e6da815ce374a8"
+        `https://api.openweathermap.org/data/2.5/weather?q=Istanbul,TR&units=metric&lang=${i18n.language}&appid=c15b2d5b95dd742d47e6da815ce374a8`
       )
       .then((res) => {
         const data = res.data;
@@ -194,7 +197,7 @@ const Weather = () => {
   const handleSalClick = () => {
     axios
       .get(
-        "https://api.openweathermap.org/data/2.5/weather?q=Salalah,OM&units=metric&appid=c15b2d5b95dd742d47e6da815ce374a8"
+        `https://api.openweathermap.org/data/2.5/weather?q=Salalah,OM&units=metric&lang=${i18n.language}&appid=c15b2d5b95dd742d47e6da815ce374a8`
       )
       .then((res) => {
         const data = res.data;
@@ -215,7 +218,7 @@ const Weather = () => {
   useEffect(() => {
     axios
       .get(
-        "https://api.openweathermap.org/data/2.5/weather?lat=52.0705&lon=4.3007&units=metric&appid=c15b2d5b95dd742d47e6da815ce374a8"
+        `https://api.openweathermap.org/data/2.5/weather?q=The+Hague,NL&units=metric&lang=${i18n.language}&appid=c15b2d5b95dd742d47e6da815ce374a8`
       )
       .then((respense) => {
         const res = respense.data;
@@ -233,10 +236,12 @@ const Weather = () => {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   return (
     <div className="weather-page-container">
       <div className="weather-info-container">
+        <div className="weather-date">
+          <p>{moment().format('LLL')}</p>
+        </div>
         <div className="weather-img">
           <img
             src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`}
@@ -250,13 +255,13 @@ const Weather = () => {
           </div>
           <div className="weather-more-info">
             <div>
-              <p className="pw top-p">Humidity:</p>
+              <p className="pw top-p">{t("Humidity")}:</p>
             </div>
             <div>
               <p className="top-p">{weather.humidity}%</p>
             </div>
             <div>
-              <p className="pw">Wind Speed:</p>
+              <p className="pw">{t("Wind Speed")}:</p>
             </div>
             <div>
               <p>{weather.windSpeed} m/s</p>
@@ -295,14 +300,29 @@ const Weather = () => {
         <div className="weather-search">
           <input
             type="text"
-            placeholder="Search city..."
+            placeholder={`${t("Search city")}...`}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             ref={inputRef}
             onKeyDown={(e) => e.key === "Enter" && handleSearchClick()}
           />
-          <button onClick={handleSearchClick}>Search</button>
+          <button onClick={handleSearchClick}>
+            {}
+            {t("Search")}
+          </button>
         </div>
+      </div>
+      <div className="weather-lang">
+        <select
+          value={i18n.language}
+          onChange={(e) => {
+            i18n.changeLanguage(e.target.value)
+            window.location.reload();
+          } }
+        >
+          <option value="en">English</option>
+          <option value="nl">Nederlands</option>
+        </select>
       </div>
     </div>
   );
