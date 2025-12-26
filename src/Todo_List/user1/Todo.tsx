@@ -7,8 +7,23 @@ import Search from "./Search";
 import { TodoContext } from "./Create-context";
 import { useToast } from "../Create-context-todo-toast";
 import { useReducerContext } from "./Create-context";
+import { Link } from "react-router";
 
-function Todo() {
+type TodoProps = {
+  setEmailWithName: React.Dispatch<
+    React.SetStateAction<{ name: string; email: string | null }>
+  >;
+  setCheck2: React.Dispatch<
+    React.SetStateAction<{
+      age: boolean;
+      name: boolean;
+      email: boolean;
+      goodToGo: boolean;
+    }>
+  >;
+};
+
+function Todo({ setEmailWithName, setCheck2 }: TodoProps) {
   const { todos, dispatch } = useReducerContext();
   const [inputValue, setInputValue] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -175,6 +190,27 @@ function Todo() {
             completedDeleted={completedDeleted}
           />
         )}
+        <div className="logout-todo">
+          <Link to="/">
+            <button
+              onClick={() => {
+                localStorage.removeItem("email");
+                setCheck2({
+                  age: false,
+                  name: false,
+                  email: false,
+                  goodToGo: false,
+                });
+                setEmailWithName({
+                  name: "",
+                  email: null,
+                });
+              }}
+            >
+              Log out
+            </button>
+          </Link>
+        </div>
       </TodoContext.Provider>
     </div>
   );

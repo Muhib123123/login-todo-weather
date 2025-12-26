@@ -6,7 +6,23 @@ import TodoNotCompleted2 from "./Todo-notCompleted2";
 import Search2 from "./Search2";
 import { TodoContext2 } from "./Create-context2";
 import { useToast } from "../Create-context-todo-toast";
-function Todo2() {
+import { Link } from "react-router";
+
+type TodoProps2 = {
+  setEmailWithName: React.Dispatch<
+    React.SetStateAction<{ name: string; email: string | null }>
+  >;
+  setCheck2: React.Dispatch<
+    React.SetStateAction<{
+      age: boolean;
+      name: boolean;
+      email: boolean;
+      goodToGo: boolean;
+    }>
+  >;
+};
+
+function Todo2({ setEmailWithName, setCheck2 }: TodoProps2) {
   const [todos, setTodos] = useState<
     { id: string; value: string; css: number }[]
   >([]);
@@ -173,6 +189,27 @@ function Todo2() {
             completedDeleted={completedDeleted}
           />
         )}
+        <div className="logout-todo">
+          <Link to="/">
+            <button
+              onClick={() => {
+                setCheck2({
+                  age: false,
+                  name: false,
+                  email: false,
+                  goodToGo: false,
+                });
+                localStorage.removeItem("email");
+                setEmailWithName({
+                  name: "",
+                  email: null,
+                });
+              }}
+            >
+              Log out
+            </button>
+          </Link>
+        </div>
       </TodoContext2.Provider>
     </div>
   );

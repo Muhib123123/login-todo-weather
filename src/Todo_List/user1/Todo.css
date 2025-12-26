@@ -109,6 +109,15 @@ li {
   border-radius: 5px;
 }
 
+.logout-todo {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 40px;
+}
+
 
 @keyframes fadeIn {
   from {

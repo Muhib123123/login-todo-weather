@@ -60,44 +60,31 @@ function App() {
               }
             />
             <Route path="/posts">
-              <Route
-                index
-                element={
-                  check.goodToGo ? (
-                    <Lists posts={posts} />
-                  ) : (
-                    <h1 className="sign-in-first">Please sign in first</h1>
-                  )
-                }
-              />
-              <Route
-                path=":id"
-                element={
-                  check.goodToGo ? (
-                    <PostDetails />
-                  ) : (
-                    <h1 className="sign-in-first">Please sign in first</h1>
-                  )
-                }
-              />
+              <Route index element={<Lists posts={posts} />} />
+              <Route path=":id" element={<PostDetails />} />
             </Route>
 
             <Route
               path="/todo"
               element={
-                check.goodToGo ? 
                 emailWithName.email == "muhib@gmail.com" ? (
-                  <Todo />
+                  <Todo
+                    setEmailWithName={setEmailWithName}
+                    setCheck2={setCheck}
+                  />
                 ) : (
                   <h1 className="sign-in-first">You have no access</h1>
-                ) : <h1 className="sign-in-first">Please sign in first</h1>
+                )
               }
             />
             <Route
               path="/todo2"
               element={
                 emailWithName.email == "muhib2@gmail.com" ? (
-                  <Todo2 />
+                  <Todo2
+                    setEmailWithName={setEmailWithName}
+                    setCheck2={setCheck}
+                  />
                 ) : (
                   <h1 className="sign-in-first">You have no access</h1>
                 )
@@ -106,12 +93,15 @@ function App() {
             <Route
               path="/weather"
               element={
-                // emailWithName.email == "muhib2@gmail.com" ||
-                // emailWithName.email == "muhib@gmail.com" ? (
-                  <Weather />
-                // ) : (
-                //   <h1 className="sign-in-first">Please sign in first</h1>
-                // )
+                emailWithName.email == "muhib2@gmail.com" ||
+                emailWithName.email == "muhib@gmail.com" ? (
+                  <Weather
+                    setEmailWithName={setEmailWithName}
+                    setCheck={setCheck}
+                  />
+                ) : (
+                  <h1 className="sign-in-first">You have no access</h1>
+                )
               }
             />
             <Route path="*" element={<h1>404 Page not found</h1>} />

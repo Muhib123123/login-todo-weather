@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWeather } from "../features/fetch/fetchSlice";
+import { Link } from "react-router";
 
 type Weather = {
   city: string | undefined;
@@ -22,7 +23,21 @@ type RootState = {
   };
 };
 
-const Weather = () => {
+type WeatherProps = {
+  setEmailWithName: React.Dispatch<
+    React.SetStateAction<{ name: string; email: string | null }>
+  >;
+  setCheck: React.Dispatch<
+    React.SetStateAction<{
+      age: boolean;
+      name: boolean;
+      email: boolean;
+      goodToGo: boolean;
+    }>
+  >;
+};
+
+const Weather = ({ setEmailWithName, setCheck }: WeatherProps) => {
   const { t, i18n } = useTranslation();
   const [search, setSearch] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -34,8 +49,15 @@ const Weather = () => {
   const dispatch = useDispatch<any>();
 
   const handleSearchClick = () => {
-    dispatch(fetchWeather({ cityName: search, i18nLang: i18n.language }));
-    setSearch("");
+    if (!search) {
+      inputRef.current?.focus();
+      setSearch("Write city name");
+      return;
+    } else {
+      dispatch(fetchWeather({ cityName: search, i18nLang: i18n.language }));
+      setSearch("");      
+    }
+
   };
 
   const handleHagClick = () => {
@@ -73,7 +95,16 @@ const Weather = () => {
   };
 
   useEffect(() => {
+    if (apiError) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    }
+  }, [apiError]);
+
+  useEffect(() => {
     handleHagClick();
+    inputRef.current?.focus();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
@@ -85,7 +116,9 @@ const Weather = () => {
       ) : (
         <>
           {apiLoading ? (
-            <div className="loader-container"><h1 className="loader"></h1></div>
+            <div className="loader-container">
+              <h1 className="loader"></h1>
+            </div>
           ) : (
             <div className="weather-info-container">
               <div className="weather-date">
@@ -173,6 +206,27 @@ const Weather = () => {
               <option value="en">English</option>
               <option value="nl">Nederlands</option>
             </select>
+          </div>
+          <div className="weather-logout">
+            <Link to="/">
+              <button
+                onClick={() => {
+                  setCheck({
+                    age: false,
+                    name: false,
+                    email: false,
+                    goodToGo: false,
+                  });
+                  localStorage.removeItem("email");
+                  setEmailWithName({
+                    name: "",
+                    email: null,
+                  });
+                }}
+              >
+                {t("Log out")}
+              </button>
+            </Link>
           </div>
         </>
       )}

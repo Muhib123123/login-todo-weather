@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import InvalidInputs from "./Invalid-Inputs";
 import InputComponent from "./Input-component";
 import SelectComponent from "./Select-component";
@@ -37,12 +37,6 @@ export default function SignIn({
   setEmailWithName,
   EmailWithName,
 }: SignInProps) {
-  useEffect(() => {
-    window.onbeforeunload = function (e) {
-      e.preventDefault();
-      localStorage.removeItem("email");
-    };
-  }, []);
 
   const [form, setForm] = useState({
     name: "",
@@ -313,6 +307,7 @@ export default function SignIn({
           setCheck={setCheck}
           check={check}
           emailWithName={EmailWithName}
+          setEmailWithName={setEmailWithName}
         />
       )}
     </>
