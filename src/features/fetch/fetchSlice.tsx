@@ -3,31 +3,33 @@ import axios from "axios";
 
 export interface CounterState {
   value: object | null;
+  loading: boolean;
+  error: boolean;
 }
 
 const initialState: CounterState = {
   value: {},
+  loading: false,
+  error: false
 };
 
 export const fetchWeather = createAsyncThunk(
   "fetch/weather",
-  async ({ i18nLang }: { i18nLang: string }) => {
-    const response = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?q=The+Hague,NL&units=metric&lang=${i18nLang}&appid=c15b2d5b95dd742d47e6da815ce374a8`
-    );
-    return response.data;
-  }
-);
-
-export const fetchWeather2 = createAsyncThunk(
-  "fetch/weather2",
-  async ({ cityName, i18nLang }: { cityName: string; i18nLang: string }) => {
+  async ({ i18nLang, cityName }: { i18nLang: string; cityName: string }) => {
     const response = await axios.get(
       `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&lang=${i18nLang}&appid=c15b2d5b95dd742d47e6da815ce374a8`
     );
-    return response.data;
+
+    const city = response.data.name;
+    const temp = Math.round(response.data.main.temp);
+    const windSpeed = response.data.wind.speed;
+    const icon = response.data.weather[0].icon;
+    const humidity = response.data.main.humidity;
+
+    return { city, temp, windSpeed, icon, humidity };
   }
 );
+
 
 
 export const fetchSlice = createSlice({
@@ -37,21 +39,16 @@ export const fetchSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchWeather.fulfilled, (state, action) => {
       state.value = action.payload;
+      state.loading = false;
     });
-    builder.addCase(fetchWeather.rejected, (_, action) => {
-      console.log(action.error);
+    builder.addCase(fetchWeather.rejected, (state) => {
+      state.loading = false;
+      state.error = true;
     });
     builder.addCase(fetchWeather.pending, (state) => {
-      state.value = null;
-    });
-    builder.addCase(fetchWeather2.fulfilled, (state, action) => {
-      state.value = action.payload;
-    });
-    builder.addCase(fetchWeather2.rejected, (_, action) => {
-        console.log(action.error.message);
-    });
-    builder.addCase(fetchWeather2.pending, (state) => {
-      state.value = null;
+      state.loading = true;
+      state.error = false;
+      state.value = {};
     });
   },
 });
