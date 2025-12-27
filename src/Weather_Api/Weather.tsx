@@ -6,7 +6,6 @@ import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWeather } from "../features/fetch/fetchSlice";
 import { Link } from "react-router";
-
 type Weather = {
   city: string | undefined;
   temp: number | undefined;
@@ -38,7 +37,7 @@ type WeatherProps = {
 };
 
 const Weather = ({ setEmailWithName, setCheck }: WeatherProps) => {
-  const { t, i18n } = useTranslation();
+
   const [search, setSearch] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -47,6 +46,7 @@ const Weather = ({ setEmailWithName, setCheck }: WeatherProps) => {
   const apiLoading = useSelector((state: RootState) => state.fetch.loading);
 
   const dispatch = useDispatch<any>();
+  const { t, i18n } = useTranslation();
 
   const handleSearchClick = () => {
     if (!search) {
