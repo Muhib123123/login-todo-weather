@@ -60,7 +60,7 @@ function App() {
               }
             />
             <Route path="/posts">
-              <Route index element={<Lists posts={posts} setEmailWithName={setEmailWithName} setCheck={setCheck}/>} />
+              <Route index element={check.goodToGo ? <Lists posts={posts} setEmailWithName={setEmailWithName} setCheck={setCheck}/>: <h1 className="sign-in-first">You have no access</h1>} />
               <Route path=":id" element={<PostDetails/>} />
             </Route>
 
@@ -104,7 +104,7 @@ function App() {
                 )
               }
             />
-            <Route path="*" element={<h1>404 Page not found</h1>} />
+            <Route path="*" element={<h1 className="sign-in-first">404 Page not found</h1>} />
           </Routes>
         </ReducerProvider>
       </ToastProvider>

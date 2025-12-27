@@ -55,9 +55,8 @@ const Weather = ({ setEmailWithName, setCheck }: WeatherProps) => {
       return;
     } else {
       dispatch(fetchWeather({ cityName: search, i18nLang: i18n.language }));
-      setSearch("");      
+      setSearch("");
     }
-
   };
 
   const handleHagClick = () => {
@@ -108,129 +107,132 @@ const Weather = ({ setEmailWithName, setCheck }: WeatherProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <div className="weather-page-container">
-      {apiError ? (
-        <h1 className="weather-error">
-          Error <span style={{ color: "red" }}>401</span>. Please try again.
-        </h1>
-      ) : (
-        <>
-          {apiLoading ? (
-            <div className="loader-container">
-              <h1 className="loader"></h1>
-            </div>
-          ) : (
-            <div className="weather-info-container">
-              <div className="weather-date">
-                <p>{moment().format("LLL")}</p>
+    <>
+      <title>weather</title>
+      <div className="weather-page-container">
+        {apiError ? (
+          <h1 className="weather-error">
+            Error <span style={{ color: "red" }}>401</span>. Please try again.
+          </h1>
+        ) : (
+          <>
+            {apiLoading ? (
+              <div className="loader-container">
+                <h1 className="loader"></h1>
               </div>
-              <div className="weather-img">
-                <img
-                  src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`}
-                  alt=""
+            ) : (
+              <div className="weather-info-container">
+                <div className="weather-date">
+                  <p>{moment().format("LLL")}</p>
+                </div>
+                <div className="weather-img">
+                  <img
+                    src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`}
+                    alt=""
+                  />
+                </div>
+                <div className="weather-info">
+                  <div className="weather-degree">
+                    <h1>{weather.temp}</h1>
+                    <p>°</p>
+                  </div>
+                  <div className="weather-more-info">
+                    <div>
+                      <p className="pw top-p">{t("Humidity")}:</p>
+                    </div>
+                    <div>
+                      <p className="top-p">{weather.humidity}%</p>
+                    </div>
+                    <div>
+                      <p className="pw">{t("Wind Speed")}:</p>
+                    </div>
+                    <div>
+                      <p>{weather.windSpeed} m/s</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="weather-city">
+                  <h1>{weather.city}</h1>
+                </div>
+              </div>
+            )}
+            <div className="weather-cities">
+              <div>
+                <button onClick={handleHagClick}>{t("The Hague")}</button>
+              </div>
+              <div>
+                <button onClick={handleWasClick}>Wassenaar</button>
+              </div>
+              <div>
+                <button onClick={handleAmsClick}>Amsterdam</button>
+              </div>
+              <div>
+                <button onClick={handleRotClick}>Rotterdam</button>
+              </div>
+              <div>
+                <button onClick={handleMasClick}>Massachusetts</button>
+              </div>
+              <div>
+                <button onClick={handleAleClick}>Aleppo</button>
+              </div>
+              <div>
+                <button onClick={handleIstClick}>Istanbul</button>
+              </div>
+              <div>
+                <button onClick={handleSalClick}>Salalah</button>
+              </div>
+              <div className="weather-search">
+                <input
+                  type="text"
+                  placeholder={`${t("Search city")}...`}
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  ref={inputRef}
+                  onKeyDown={(e) => e.key === "Enter" && handleSearchClick()}
                 />
-              </div>
-              <div className="weather-info">
-                <div className="weather-degree">
-                  <h1>{weather.temp}</h1>
-                  <p>°</p>
-                </div>
-                <div className="weather-more-info">
-                  <div>
-                    <p className="pw top-p">{t("Humidity")}:</p>
-                  </div>
-                  <div>
-                    <p className="top-p">{weather.humidity}%</p>
-                  </div>
-                  <div>
-                    <p className="pw">{t("Wind Speed")}:</p>
-                  </div>
-                  <div>
-                    <p>{weather.windSpeed} m/s</p>
-                  </div>
-                </div>
-              </div>
-              <div className="weather-city">
-                <h1>{weather.city}</h1>
+                <button onClick={handleSearchClick}>
+                  {}
+                  {t("Search")}
+                </button>
               </div>
             </div>
-          )}
-          <div className="weather-cities">
-            <div>
-              <button onClick={handleHagClick}>{t("The Hague")}</button>
-            </div>
-            <div>
-              <button onClick={handleWasClick}>Wassenaar</button>
-            </div>
-            <div>
-              <button onClick={handleAmsClick}>Amsterdam</button>
-            </div>
-            <div>
-              <button onClick={handleRotClick}>Rotterdam</button>
-            </div>
-            <div>
-              <button onClick={handleMasClick}>Massachusetts</button>
-            </div>
-            <div>
-              <button onClick={handleAleClick}>Aleppo</button>
-            </div>
-            <div>
-              <button onClick={handleIstClick}>Istanbul</button>
-            </div>
-            <div>
-              <button onClick={handleSalClick}>Salalah</button>
-            </div>
-            <div className="weather-search">
-              <input
-                type="text"
-                placeholder={`${t("Search city")}...`}
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                ref={inputRef}
-                onKeyDown={(e) => e.key === "Enter" && handleSearchClick()}
-              />
-              <button onClick={handleSearchClick}>
-                {}
-                {t("Search")}
-              </button>
-            </div>
-          </div>
-          <div className="weather-lang">
-            <select
-              value={i18n.language}
-              onChange={(e) => {
-                i18n.changeLanguage(e.target.value);
-                window.location.reload();
-              }}
-            >
-              <option value="en">English</option>
-              <option value="nl">Nederlands</option>
-            </select>
-          </div>
-          <div className="weather-logout">
-            <Link to="/">
-              <button
-                onClick={() => {
-                  setCheck({
-                    age: false,
-                    name: false,
-                    email: false,
-                    goodToGo: false,
-                  });
-                  localStorage.removeItem("email");
-                  setEmailWithName({
-                    name: "",
-                    email: null,
-                  });
+            <div className="weather-lang">
+              <select
+                value={i18n.language}
+                onChange={(e) => {
+                  i18n.changeLanguage(e.target.value);
+                  window.location.reload();
                 }}
               >
-                {t("Log out")}
-              </button>
-            </Link>
-          </div>
-        </>
-      )}
-    </div>
+                <option value="en">English</option>
+                <option value="nl">Nederlands</option>
+              </select>
+            </div>
+            <div className="weather-logout">
+              <Link to="/">
+                <button
+                  onClick={() => {
+                    setCheck({
+                      age: false,
+                      name: false,
+                      email: false,
+                      goodToGo: false,
+                    });
+                    localStorage.removeItem("email");
+                    setEmailWithName({
+                      name: "",
+                      email: null,
+                    });
+                  }}
+                >
+                  {t("Log out")}
+                </button>
+              </Link>
+            </div>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 

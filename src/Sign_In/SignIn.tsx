@@ -37,7 +37,6 @@ export default function SignIn({
   setEmailWithName,
   EmailWithName,
 }: SignInProps) {
-
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -235,6 +234,7 @@ export default function SignIn({
 
   return (
     <>
+      <title>login</title>
       <form onSubmit={handleSubmition}>
         <InputComponent
           type="text"

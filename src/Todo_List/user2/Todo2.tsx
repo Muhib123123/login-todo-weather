@@ -87,131 +87,134 @@ function Todo2({ setEmailWithName, setCheck2 }: TodoProps2) {
   };
 
   return (
-    <div className="todo-container">
-      <div className="shared-div">
-        <h1>Todo List</h1>
-      </div>
-      <div className="shared-div">
-        <input
-          type="text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") handleAddTodo();
-          }}
-          className="shared-input-todo"
-          maxLength={35}
-        />
-        <button className="add-button" onClick={handleAddTodo}>
-          Add Task
-        </button>
-      </div>
-      <div className="search-div">
-        <input
-          type="text"
-          value={search.value}
-          onChange={(e) => handleSearch(e)}
-          placeholder="Search"
-        />
-      </div>
-      <div className="shared-div2">
-        <button
-          onClick={() => {
-            setCheck({
-              ...check,
-              all: true,
-              completed: false,
-              notCompleted: false,
-            });
-            todos.map((todo) => (todo.css = 1));
-            setSearch({ value: "", notFound: false });
-          }}
-        >
-          All
-        </button>
-
-        <button
-          onClick={() => {
-            setCheck({
-              ...check,
-              completed: true,
-              all: false,
-              notCompleted: false,
-            });
-            todos.map((todo) => (todo.css = 1));
-            setSearch({ value: "", notFound: false });
-          }}
-        >
-          Completed
-        </button>
-
-        <button
-          onClick={() => {
-            setCheck({
-              ...check,
-              notCompleted: true,
-              all: false,
-              completed: false,
-            });
-            todos.map((todo) => (todo.css = 1));
-            setSearch({ value: "", notFound: false });
-          }}
-        >
-          Not Completed
-        </button>
-      </div>
-      <TodoContext2.Provider value={LiValue}>
-        {check.all && search.value === "" && (
-          <TodoAll2 todos={todos} completedDeleted={completedDeleted} />
-        )}
-
-        {search.value && (
-          <Search2
-            search={search}
-            todos={todos}
-            completedDeleted={completedDeleted}
-          />
-        )}
-
-        {check.completed && search.value === "" && (
-          <TodoCompleted2
-            completedTodos={completedTodos}
-            setCompletedTodos={setCompletedTodos}
-            completedDeleted={completedDeleted}
-            setCompletedDeleted={setCompletedDeleted}
-          />
-        )}
-
-        {check.notCompleted && search.value === "" && (
-          <TodoNotCompleted2
-            todos={todos}
-            completedTodos={completedTodos}
-            completedDeleted={completedDeleted}
-          />
-        )}
-        <div className="logout-todo">
-          <Link to="/">
-            <button
-              onClick={() => {
-                setCheck2({
-                  age: false,
-                  name: false,
-                  email: false,
-                  goodToGo: false,
-                });
-                localStorage.removeItem("email");
-                setEmailWithName({
-                  name: "",
-                  email: null,
-                });
-              }}
-            >
-              Log out
-            </button>
-          </Link>
+    <>
+      <title>todo2</title>
+      <div className="todo-container">
+        <div className="shared-div">
+          <h1>Todo List</h1>
         </div>
-      </TodoContext2.Provider>
-    </div>
+        <div className="shared-div">
+          <input
+            type="text"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleAddTodo();
+            }}
+            className="shared-input-todo"
+            maxLength={35}
+          />
+          <button className="add-button" onClick={handleAddTodo}>
+            Add Task
+          </button>
+        </div>
+        <div className="search-div">
+          <input
+            type="text"
+            value={search.value}
+            onChange={(e) => handleSearch(e)}
+            placeholder="Search"
+          />
+        </div>
+        <div className="shared-div2">
+          <button
+            onClick={() => {
+              setCheck({
+                ...check,
+                all: true,
+                completed: false,
+                notCompleted: false,
+              });
+              todos.map((todo) => (todo.css = 1));
+              setSearch({ value: "", notFound: false });
+            }}
+          >
+            All
+          </button>
+
+          <button
+            onClick={() => {
+              setCheck({
+                ...check,
+                completed: true,
+                all: false,
+                notCompleted: false,
+              });
+              todos.map((todo) => (todo.css = 1));
+              setSearch({ value: "", notFound: false });
+            }}
+          >
+            Completed
+          </button>
+
+          <button
+            onClick={() => {
+              setCheck({
+                ...check,
+                notCompleted: true,
+                all: false,
+                completed: false,
+              });
+              todos.map((todo) => (todo.css = 1));
+              setSearch({ value: "", notFound: false });
+            }}
+          >
+            Not Completed
+          </button>
+        </div>
+        <TodoContext2.Provider value={LiValue}>
+          {check.all && search.value === "" && (
+            <TodoAll2 todos={todos} completedDeleted={completedDeleted} />
+          )}
+
+          {search.value && (
+            <Search2
+              search={search}
+              todos={todos}
+              completedDeleted={completedDeleted}
+            />
+          )}
+
+          {check.completed && search.value === "" && (
+            <TodoCompleted2
+              completedTodos={completedTodos}
+              setCompletedTodos={setCompletedTodos}
+              completedDeleted={completedDeleted}
+              setCompletedDeleted={setCompletedDeleted}
+            />
+          )}
+
+          {check.notCompleted && search.value === "" && (
+            <TodoNotCompleted2
+              todos={todos}
+              completedTodos={completedTodos}
+              completedDeleted={completedDeleted}
+            />
+          )}
+          <div className="logout-todo">
+            <Link to="/">
+              <button
+                onClick={() => {
+                  setCheck2({
+                    age: false,
+                    name: false,
+                    email: false,
+                    goodToGo: false,
+                  });
+                  localStorage.removeItem("email");
+                  setEmailWithName({
+                    name: "",
+                    email: null,
+                  });
+                }}
+              >
+                Log out
+              </button>
+            </Link>
+          </div>
+        </TodoContext2.Provider>
+      </div>
+    </>
   );
 }
 
