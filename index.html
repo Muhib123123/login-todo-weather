@@ -5,19 +5,6 @@
     <link rel="icon" href="./public/coin_6269933.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Redirecting</title>
-    <script type="text/javascript">
-        var pathSegmentsToKeep = 0;
-        var l = window.location;
-        l.replace(
-            l.protocol + '//' +
-            l.hostname + (l.port ? ':' + l.port : '') +
-            '/login-todo-weather/' +
-            '?p=' +
-            l.pathname.slice(1).replace('login-todo-weather/', '') +
-            (l.search ? '&q=' + l.search.slice(1) : '') +
-            l.hash
-        );
-    </script>
   </head>
   <body>
     <div id="root"></div>
