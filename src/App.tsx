@@ -49,7 +49,7 @@ function App() {
         <ReducerProvider>
           <Routes>
             <Route
-              path="/"
+              path="/login-todo-weather"
               element={
                 <SignIn
                   check={check}
@@ -59,13 +59,13 @@ function App() {
                 />
               }
             />
-            <Route path="/posts">
+            <Route path="/login-todo-weather/posts">
               <Route index element={check.goodToGo ? <Lists posts={posts} setEmailWithName={setEmailWithName} setCheck={setCheck}/>: <h1 className="sign-in-first">You have no access</h1>} />
               <Route path=":id" element={<PostDetails/>} />
             </Route>
 
             <Route
-              path="/todo"
+              path="/login-todo-weather/todo"
               element={
                 emailWithName.email == "muhib@gmail.com" ? (
                   <Todo
@@ -78,7 +78,7 @@ function App() {
               }
             />
             <Route
-              path="/todo2"
+              path="/login-todo-weather/todo2"
               element={
                 emailWithName.email == "muhib2@gmail.com" ? (
                   <Todo2
@@ -91,7 +91,7 @@ function App() {
               }
             />
             <Route
-              path="/weather"
+              path="/login-todo-weather/weather"
               element={
                 emailWithName.email == "muhib2@gmail.com" ||
                 emailWithName.email == "muhib@gmail.com" ? (
