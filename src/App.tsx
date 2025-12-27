@@ -60,8 +60,8 @@ function App() {
               }
             />
             <Route path="/posts">
-              <Route index element={<Lists posts={posts} />} />
-              <Route path=":id" element={<PostDetails />} />
+              <Route index element={<Lists posts={posts} setEmailWithName={setEmailWithName} setCheck={setCheck}/>} />
+              <Route path=":id" element={<PostDetails/>} />
             </Route>
 
             <Route

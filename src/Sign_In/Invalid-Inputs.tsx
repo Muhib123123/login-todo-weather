@@ -97,7 +97,7 @@ export default function InvalidInputs({
           emailWithName.email == "muhib@gmail.com" ? (
             <Link to="/weather">Weather page</Link>
           ) : null}
-          <button onClick={handleCloseElement}>Cancel</button>
+          <button onClick={handleCloseElement}>Log out</button>
         </div>
       </div>
     );

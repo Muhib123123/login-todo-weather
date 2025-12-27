@@ -4,11 +4,27 @@ import { useSelector, useDispatch } from "react-redux";
 import { multi } from "../features/calc/calcSlice";
 import { type RootState } from "../app/store";
 
+type props = {
+  posts: { id: string; title: string; body: string }[];
+  setEmailWithName: React.Dispatch<
+    React.SetStateAction<{ name: string; email: string | null }>
+  >;
+  setCheck: React.Dispatch<
+    React.SetStateAction<{
+      age: boolean;
+      name: boolean;
+      email: boolean;
+      goodToGo: boolean;
+    }>
+  >;
+};
+
+
 export default function Lists({
   posts,
-}: {
-  posts: { id: string; title: string; body: string }[];
-}) {
+  setEmailWithName,
+  setCheck,
+}: props) {
   const [firstNum, setFirstNum] = useState<string>("");
   const [secondNum, setSecondNum] = useState<string>("");
   const dispatch = useDispatch();
@@ -47,6 +63,27 @@ export default function Lists({
           multi
         </button>
         <p>{value}</p>
+      </div>
+      <div className="logout" style={{width: "60%", margin: "20px auto", display: "flex", justifyContent: "flex-end"}}>
+        <Link to="/">
+          <button
+            onClick={() => {
+              setCheck({
+                age: false,
+                name: false,
+                email: false,
+                goodToGo: false,
+              });
+              localStorage.removeItem("email");
+              setEmailWithName({
+                name: "",
+                email: null,
+              });
+            }}
+          >
+            Log out
+          </button>
+        </Link>
       </div>
     </div>
   );
