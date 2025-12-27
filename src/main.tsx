@@ -10,7 +10,7 @@ import { Provider } from "react-redux";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename="/login-todo-weather">
         <App />
       </BrowserRouter>
     </Provider>
