@@ -295,6 +295,8 @@ button[type="submit"]:disabled {
   .header-shared-links-container {
     height: 200px;
     p {
+      width: 80%;
+      margin: 0 auto;
       font-size: 12px;
     }
   }
@@ -304,6 +306,6 @@ button[type="submit"]:disabled {
     font-size: 14px;
     margin: 0 auto;
     margin-top: 80px;
-    margin-bottom: -150px
+    margin-bottom: -150px;
   }
 }
