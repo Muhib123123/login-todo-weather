@@ -250,6 +250,13 @@ button[type="submit"]:disabled {
   gap: 1rem;
 }
 
+.note-login {
+  text-align: center;
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: -100px;
+}
+
 @media (max-width: 676px) {
   .form-container {
     padding: 0;
@@ -290,5 +297,13 @@ button[type="submit"]:disabled {
     p {
       font-size: 12px;
     }
+  }
+  .note-login {
+    text-align: center;
+    width: 80%;
+    font-size: 14px;
+    margin: 0 auto;
+    margin-top: 80px;
+    margin-bottom: -150px
   }
 }
