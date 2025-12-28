@@ -35,6 +35,7 @@ function SharedLi({ todo }: Props) {
       dispatch({ type: "DELETE_TODO", payload: { todo } });
       const id = [...completedDeleted, todo.id];
       setCompletedDeleted(id);
+      localStorage.setItem("completedDeleted", JSON.stringify(id));
       Toast?.handleToastContext("Todo deleted successfully");
     }, 280);
   };

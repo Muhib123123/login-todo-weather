@@ -83,7 +83,10 @@ function Todo({ setEmailWithName, setCheck2 }: TodoProps) {
     if (storedCompletedTodos) {
       setCompletedTodos(JSON.parse(storedCompletedTodos));
     }
-
+    const storedCompletedDeleted = localStorage.getItem("completedDeleted");
+    if (storedCompletedDeleted) {
+      setCompletedDeleted(JSON.parse(storedCompletedDeleted));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

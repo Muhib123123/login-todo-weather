@@ -24,6 +24,7 @@ function TodoCompleted({
       setTimeout(() => {
         const id = [...completedDeleted, todo.id];
         setCompletedDeleted(id);
+        localStorage.setItem("completedDeleted", JSON.stringify(id));
         const prev = [...completedTodos];
         setCompletedTodos((prev) => prev.filter((t) => t.id !== todo.id));
         localStorage.setItem(
