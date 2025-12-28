@@ -118,6 +118,68 @@ li {
   margin-top: 40px;
 }
 
+@media (max-width: 676px) {
+  .todo-container {
+    width: 100% !important;
+    margin: 0 !important; 
+    margin-top: 100px !important;
+    .shared-div h1 {
+      font-size: 34px !important;
+    }
+    .shared-div .shared-input-todo {
+      width: 180px !important;
+      font-size: 14px !important;
+      height: 33px !important;
+    }
+    .add-button {
+      padding: 8px 14px !important;
+      font-size: 14px !important;
+    }
+    .search-div .shared-input-todo {
+      width: 150px !important;
+      font-size: 14px !important;
+      height: 33px !important;
+    }
+    .shared-div2 button {
+      padding: 10px 20px !important;
+      font-size: 14px !important;
+    }
+    ul li {
+      font-size: 14px !important;
+      span {
+        max-width: 150px !important;
+        overflow: hidden !important;
+        text-overflow:ellipsis !important;
+      }
+      .edit-todo-container {
+        input[type="text"] {
+          width: 150px !important;
+          font-size: 14px !important;
+          height: 30px !important;
+        }
+      }
+    }
+   .item-button-e, .item-button-done {
+      padding: 5px 8px !important;
+      font-size: 12px !important;
+      margin-right: 8px !important;
+
+    }
+    .item-button-d {
+      padding: 5px 8px !important;
+      font-size: 12px !important;
+      margin-right: 0px !important;
+    }
+    .logout-todo {
+      margin-top: 20px !important;
+      a {
+        font-size: 14px !important;
+        padding: 6px 12px !important;
+      }
+
+    }
+  }
+}
 
 @keyframes fadeIn {
   from {

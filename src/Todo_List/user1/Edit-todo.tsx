@@ -22,7 +22,7 @@ function EditTodo({ todo, onClose, completedTodos }: Props) {
   return (
     <>
       {completedTodos.some((c) => c.id === todo.id) ? null : (
-        <div>
+        <div className="edit-todo-container">
           <input
             type="text"
             value={newValue}

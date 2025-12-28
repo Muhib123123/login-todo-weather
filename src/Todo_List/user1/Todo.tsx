@@ -115,6 +115,8 @@ function Todo({ setEmailWithName, setCheck2 }: TodoProps) {
             value={search.value}
             onChange={(e) => handleSearch(e)}
             placeholder="Search"
+            className="shared-input-todo"
+            maxLength={35}
           />
         </div>
         <div className="shared-div2">
