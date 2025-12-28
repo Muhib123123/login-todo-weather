@@ -107,7 +107,6 @@ const Weather = ({ setEmailWithName, setCheck, checkPage, setCheckPage}: Weather
 
   useEffect(() => {
     handleHagClick();
-    inputRef.current?.focus();
     setCheckPage("weather")
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
