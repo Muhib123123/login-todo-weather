@@ -113,7 +113,7 @@ const Weather = ({ setEmailWithName, setCheck, checkPage, setCheckPage}: Weather
   return (
     <>
       <title>weather</title>
-      <LinksPages checkPage={checkPage} />
+      {!apiError && <LinksPages checkPage={checkPage} />}
       <div className="weather-page-container">
         {apiError ? (
           <h1 className="weather-error">
