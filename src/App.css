@@ -49,8 +49,16 @@ body {
   align-items: start;
 }
 
+.form-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 form {
-  margin: 80px;
   background-color: var(--surface-color);
   padding: 2rem 2.5rem;
   border-radius: var(--border-radius);

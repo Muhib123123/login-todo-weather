@@ -235,73 +235,74 @@ export default function SignIn({
   return (
     <>
       <title>login</title>
-      <form onSubmit={handleSubmition}>
-        <InputComponent
-          type="text"
-          ref={nameRef}
-          value={form.name}
-          onChange={handleName}
-          placeholder="Your name"
-          className="shared-input"
-          required
-        />
+      <div className="form-container">
+        <form onSubmit={handleSubmition}>
+          <InputComponent
+            type="text"
+            ref={nameRef}
+            value={form.name}
+            onChange={handleName}
+            placeholder="Your name"
+            className="shared-input"
+            required
+          />
 
-        <InputComponent
-          type="email"
-          value={form.email}
-          onChange={handleEmail}
-          placeholder="Your email"
-          ref={emailRef}
-          className="shared-input"
-          required
-        />
+          <InputComponent
+            type="email"
+            value={form.email}
+            onChange={handleEmail}
+            placeholder="Your email"
+            ref={emailRef}
+            className="shared-input"
+            required
+          />
 
-        <InputComponent
-          type="number"
-          value={form.age}
-          onChange={handleAge}
-          placeholder="Your age"
-          min={0}
-          max={99}
-          ref={ageRef}
-          className="shared-input"
-          required
-        />
+          <InputComponent
+            type="number"
+            value={form.age}
+            onChange={handleAge}
+            placeholder="Your age"
+            min={0}
+            max={99}
+            ref={ageRef}
+            className="shared-input"
+            required
+          />
 
-        <label htmlFor="checkbox">Are you employed?</label>
+          <label htmlFor="checkbox">Are you employed?</label>
 
-        <InputComponent
-          type="checkbox"
-          id="checkbox"
-          onChange={(e) => {
-            setForm({
-              ...form,
-              employed: e.target.checked,
-            });
-          }}
-          checked={form.employed}
-          className="shared-input"
-        />
+          <InputComponent
+            type="checkbox"
+            id="checkbox"
+            onChange={(e) => {
+              setForm({
+                ...form,
+                employed: e.target.checked,
+              });
+            }}
+            checked={form.employed}
+            className="shared-input"
+          />
 
-        <SelectContext.Provider
-          value={{ value: form.salary, onChange: handleSelect }}
-        >
-          <SelectComponent />
-        </SelectContext.Provider>
+          <SelectContext.Provider
+            value={{ value: form.salary, onChange: handleSelect }}
+          >
+            <SelectComponent />
+          </SelectContext.Provider>
 
-        <button
-          type="submit"
-          disabled={
-            checkName ||
-            !emailRegex.test(form.email) ||
-            !ageRegex.test(form.age) ||
-            Number(form.age) < 18
-          }
-        >
-          Submit
-        </button>
-      </form>
-
+          <button
+            type="submit"
+            disabled={
+              checkName ||
+              !emailRegex.test(form.email) ||
+              !ageRegex.test(form.age) ||
+              Number(form.age) < 18
+            }
+          >
+            Submit
+          </button>
+        </form>
+      </div>
       {(check.age || check.name || check.goodToGo || check.email) && (
         <InvalidInputs
           setCheck={setCheck}
