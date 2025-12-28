@@ -8,6 +8,7 @@ import { TodoContext } from "./Create-context";
 import { useToast } from "../Create-context-todo-toast";
 import { useReducerContext } from "./Create-context";
 import { Link } from "react-router";
+import LinksPages from "../../shared-links-pages";
 
 type TodoProps = {
   setEmailWithName: React.Dispatch<
@@ -21,9 +22,11 @@ type TodoProps = {
       goodToGo: boolean;
     }>
   >;
+  checkPage: string;
+  setCheckPage: React.Dispatch<React.SetStateAction<string>>;
 };
 
-function Todo({ setEmailWithName, setCheck2 }: TodoProps) {
+function Todo({ setEmailWithName, setCheck2, checkPage, setCheckPage}: TodoProps) {
   const { todos, dispatch } = useReducerContext();
   const [inputValue, setInputValue] = useState("");
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -87,12 +90,14 @@ function Todo({ setEmailWithName, setCheck2 }: TodoProps) {
     if (storedCompletedDeleted) {
       setCompletedDeleted(JSON.parse(storedCompletedDeleted));
     }
+    setCheckPage("todo");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       <title>todo</title>
+      <LinksPages checkPage={checkPage} />
       <div className="todo-container">
         <div className="shared-div">
           <h1>Todo List</h1>

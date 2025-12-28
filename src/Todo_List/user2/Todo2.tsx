@@ -7,6 +7,7 @@ import Search2 from "./Search2";
 import { TodoContext2 } from "./Create-context2";
 import { useToast } from "../Create-context-todo-toast";
 import { Link } from "react-router";
+import LinksPages from "../../shared-links-pages";
 
 type TodoProps2 = {
   setEmailWithName: React.Dispatch<
@@ -20,9 +21,11 @@ type TodoProps2 = {
       goodToGo: boolean;
     }>
   >;
+  checkPage: string;
+  setCheckPage: React.Dispatch<React.SetStateAction<string>>;
 };
 
-function Todo2({ setEmailWithName, setCheck2 }: TodoProps2) {
+function Todo2({ setEmailWithName, setCheck2, checkPage, setCheckPage}: TodoProps2) {
   const [todos, setTodos] = useState<
     { id: string; value: string; css: number }[]
   >([]);
@@ -59,9 +62,10 @@ function Todo2({ setEmailWithName, setCheck2 }: TodoProps2) {
   useEffect(() => {
     const storedTodos = localStorage.getItem("todos2");
     if (storedTodos) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTodos(JSON.parse(storedTodos));
     }
+    setCheckPage("todo2")
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,6 +93,7 @@ function Todo2({ setEmailWithName, setCheck2 }: TodoProps2) {
   return (
     <>
       <title>todo2</title>
+      <LinksPages checkPage={checkPage}/>
       <div className="todo-container">
         <div className="shared-div">
           <h1>Todo List</h1>
@@ -114,6 +119,8 @@ function Todo2({ setEmailWithName, setCheck2 }: TodoProps2) {
             value={search.value}
             onChange={(e) => handleSearch(e)}
             placeholder="Search"
+            className="shared-input-todo"
+            maxLength={35}
           />
         </div>
         <div className="shared-div2">

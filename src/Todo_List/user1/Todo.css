@@ -8,7 +8,7 @@
 }
 
 .todo-container {
-    margin: 40px;
+    margin: 40px auto;
     padding: 20px;
     border: 2px solid #69336a;
     border-radius: 10px;
@@ -122,7 +122,7 @@ li {
   .todo-container {
     width: 100% !important;
     margin: 0 !important; 
-    margin-top: 100px !important;
+    margin-top: 60px !important;
     .shared-div h1 {
       font-size: 34px !important;
     }

@@ -6,6 +6,8 @@ import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWeather } from "../features/fetch/fetchSlice";
 import { Link } from "react-router";
+import LinksPages from "../shared-links-pages";
+
 type Weather = {
   city: string | undefined;
   temp: number | undefined;
@@ -34,9 +36,11 @@ type WeatherProps = {
       goodToGo: boolean;
     }>
   >;
+  checkPage: string;
+  setCheckPage: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const Weather = ({ setEmailWithName, setCheck }: WeatherProps) => {
+const Weather = ({ setEmailWithName, setCheck, checkPage, setCheckPage}: WeatherProps) => {
 
   const [search, setSearch] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -104,11 +108,13 @@ const Weather = ({ setEmailWithName, setCheck }: WeatherProps) => {
   useEffect(() => {
     handleHagClick();
     inputRef.current?.focus();
+    setCheckPage("weather")
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
       <title>weather</title>
+      <LinksPages checkPage={checkPage} />
       <div className="weather-page-container">
         {apiError ? (
           <h1 className="weather-error">

@@ -1,6 +1,6 @@
 .weather-page-container {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-content: center;
@@ -92,7 +92,6 @@
   }
 }
 
-
 .weather-cities {
   width: 320px;
   height: 300px;
@@ -104,7 +103,7 @@
     width: 50%;
     display: flex;
     justify-content: center;
-    align-items: center
+    align-items: center;
   }
   .weather-search {
     margin-top: 20px;
@@ -141,12 +140,91 @@
   width: 50px;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: 
-    radial-gradient(farthest-side,#ffa516 94%,#0000) top/8px 8px no-repeat,
-    conic-gradient(#0000 30%,#ffa516);
-  -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 8px),#000 0);
+  background: radial-gradient(farthest-side, #ffa516 94%, #0000) top/8px 8px
+      no-repeat,
+    conic-gradient(#0000 30%, #ffa516);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
   animation: l13 1s infinite linear;
 }
-@keyframes l13{ 
-  100%{transform: rotate(1turn)}
+@keyframes l13 {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+@media (max-width: 676px) {
+  .weather-page-container {
+    margin-top: 0;
+    padding: 20px;
+  }
+  .weather-info-container {
+    padding: 0;
+    width: 300px;
+    height: 220px;
+    .weather-img {
+      width: 120px;
+      height: 140px;
+    }
+    .weather-info {
+      width: 180px;
+      height: 140px;
+      .weather-degree {
+        height: 80px;
+        h1 {
+          font-size: 60px;
+          margin-left: 30px;
+        }
+        p {
+          font-size: 50px;
+        }
+      }
+      .weather-more-info {
+        height: 60px;
+        div {
+          .pw {
+            font-size: 12px;
+          }
+          .top-p {
+            font-size: 12px;
+          }
+          p {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+    .weather-city {
+      height: 50px;
+      h1 {
+        font-size: 28px;
+        margin: 5px 8px;
+      }
+    }
+  }
+  .weather-cities {
+    margin: 20px;
+    button {
+      font-size: 12px;
+    }
+    .weather-search {
+      input {
+        width: 140px;
+        font-size: 12px;
+      }
+    }
+  }
+  .weather-lang {
+    select {
+      font-size: 12px;
+    }
+  }
+  .weather-logout {
+    button {
+      font-size: 12px;
+      padding: 8px 14px;
+    }
+  }
+  .weather-error {
+    font-size: 18px;
+  }
 }

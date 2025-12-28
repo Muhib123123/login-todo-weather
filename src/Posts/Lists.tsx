@@ -1,8 +1,9 @@
 import { Link } from "react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { multi } from "../features/calc/calcSlice";
 import { type RootState } from "../app/store";
+import LinksPages from "../shared-links-pages";
 
 type props = {
   posts: { id: string; title: string; body: string }[];
@@ -17,17 +18,26 @@ type props = {
       goodToGo: boolean;
     }>
   >;
+  checkPage: string;
+  setCheckPage: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export default function Lists({ posts, setEmailWithName, setCheck }: props) {
+export default function Lists({ posts, setEmailWithName, setCheck, checkPage, setCheckPage }: props) {
   const [firstNum, setFirstNum] = useState<string>("");
   const [secondNum, setSecondNum] = useState<string>("");
   const dispatch = useDispatch();
   const value = useSelector((state: RootState) => state.multi.value);
 
+  useEffect(() => {
+    setCheckPage("posts");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+
   return (
     <>
       <title>posts</title>
+      <LinksPages checkPage={checkPage} />      
       <div className="lists-container">
         {posts.map((post) => (
           <Link to={`/posts/${post.id}`} key={post.id}>

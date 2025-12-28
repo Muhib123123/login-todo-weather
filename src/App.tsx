@@ -43,6 +43,8 @@ function App() {
     email: localStorage.getItem("email"),
   });
 
+  const [checkPage, setCheckPage] = useState("");
+
   return (
     <PostContext.Provider value={{ posts }}>
       <ToastProvider>
@@ -60,7 +62,7 @@ function App() {
               }
             />
             <Route path="/posts">
-              <Route index element={check.goodToGo ? <Lists posts={posts} setEmailWithName={setEmailWithName} setCheck={setCheck}/>: <h1 className="sign-in-first">You have no access</h1>} />
+              <Route index element={<Lists posts={posts} setEmailWithName={setEmailWithName} setCheck={setCheck} setCheckPage={setCheckPage} checkPage={checkPage} />} />
               <Route path=":id" element={<PostDetails/>} />
             </Route>
 
@@ -71,6 +73,8 @@ function App() {
                   <Todo
                     setEmailWithName={setEmailWithName}
                     setCheck2={setCheck}
+                    setCheckPage={setCheckPage}
+                    checkPage={checkPage}
                   />
                 ) : (
                   <h1 className="sign-in-first">You have no access</h1>
@@ -84,6 +88,8 @@ function App() {
                   <Todo2
                     setEmailWithName={setEmailWithName}
                     setCheck2={setCheck}
+                    setCheckPage={setCheckPage}
+                    checkPage={checkPage}
                   />
                 ) : (
                   <h1 className="sign-in-first">You have no access</h1>
@@ -98,6 +104,8 @@ function App() {
                   <Weather
                     setEmailWithName={setEmailWithName}
                     setCheck={setCheck}
+                    setCheckPage={setCheckPage}
+                    checkPage={checkPage}
                   />
                 ) : (
                   <h1 className="sign-in-first">You have no access</h1>

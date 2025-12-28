@@ -26,7 +26,7 @@ function EditTodo2({ todo, setTodos, onClose, completedTodos, todos }: Props) {
   return (
     <>
       {completedTodos.some((c) => c.id === todo.id) ? null : (
-        <div>
+        <div className="edit-todo-container">
           <input
             type="text"
             value={newValue}
@@ -36,7 +36,7 @@ function EditTodo2({ todo, setTodos, onClose, completedTodos, todos }: Props) {
               if (e.key === "Enter") handleSave();
             }}
           />
-          <button className="item-button-e" onClick={handleSave}>
+          <button className="item-button-e save" onClick={handleSave}>
             Save
           </button>
           <button className="item-button-d" onClick={onClose}>
