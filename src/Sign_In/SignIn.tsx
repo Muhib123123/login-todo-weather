@@ -235,7 +235,7 @@ export default function SignIn({
   return (
     <>
       <title>login</title>
-        <p className="note-login">Note: You should use this email to get a full access to the pages: muhib@gmail.com or muhib2@gmail.com</p>      
+        <p className="note-login">Note: You should use this email to get a full access: muhib@gmail.com or muhib2@gmail.com</p>      
       <div className="form-container">
         <form onSubmit={handleSubmition}>
           <InputComponent
@@ -243,7 +243,7 @@ export default function SignIn({
             ref={nameRef}
             value={form.name}
             onChange={handleName}
-            placeholder="Your name"
+            placeholder="Initials"
             className="shared-input"
             required
           />

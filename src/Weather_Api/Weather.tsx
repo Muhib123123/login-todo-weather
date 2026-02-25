@@ -117,7 +117,7 @@ const Weather = ({ setEmailWithName, setCheck, checkPage, setCheckPage}: Weather
       <div className="weather-page-container">
         {apiError ? (
           <h1 className="weather-error">
-            Error <span style={{ color: "red" }}>401</span>. Please try again.
+            Error <span style={{ color: "red" }}>401</span>: City not found.
           </h1>
         ) : (
           <>
